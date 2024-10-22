@@ -1,0 +1,103 @@
+#root {
+  margin: 0 auto;
+  padding: 0px;
+}
+
+
+.backDropPic{
+
+  background-image: url("/images/scandinavian-interior-mockup-wall-decal-background 1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: calc(100%) 70%;
+  background-attachment: fixed;
+  
+}
+
+:root{
+  --lightColor : #FFF3E3;
+  --darkColor: #B88E2F;
+  --hoverColor: #3A3A3A;
+  --lightbg: #FCF8F3;
+
+
+}
+.text-dark{
+  color: #B88E2F!important;
+}
+.bg-dark{
+  background-color: #B88E2F!important;
+}
+
+.lightColor{
+  background-color: var(--lightColor);
+}
+.lightbg{
+  background-color: var(--lightbg);
+}
+.hoverColor{
+  background-color: var(--hoverColor);
+}
+.darkColor{
+  background-color: var(--darkColor)!important;
+}
+.lightFont{
+  color: var(--lightColor);
+}
+.darkFont{
+  color: var(--darkColor);
+}
+.darkBorder{
+  border-color: var(--darkColor);
+}
+
+.addToCartBtn{
+  opacity: 100%!important;
+  background-color: white!important;
+}
+
+.loader {
+  width: 100px;
+  aspect-ratio: 1;
+  padding: 10px;
+  box-sizing: border-box;
+  display: grid;
+  background: #fff;
+  filter: blur(5px) contrast(10) hue-rotate(300deg);
+  mix-blend-mode: darken;
+}
+.loader:before,
+.loader:after{ 
+  content: "";
+  grid-area: 1/1; 
+  width: 40px;
+  height: 40px;
+  background: var(--darkColor);
+  animation: l7 2s infinite;
+}
+.loader:after{ 
+  animation-delay: -1s;
+}
+@keyframes l7{
+  0%   {transform: translate(   0,0)}
+  25%  {transform: translate(100%,0)}
+  50%  {transform: translate(100%,100%)}
+  75%  {transform: translate(   0,100%)}
+  100% {transform: translate(   0,0)}
+}
+
+input:focus {
+  outline: none!important; /* Removes the blue outline */
+  border-color: transparent!important; /* Makes the border transparent */
+}
+
+
+/* App.css ya global CSS file me */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
