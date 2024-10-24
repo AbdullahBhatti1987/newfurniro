@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from "react";
 import PageTop from "../components/PageTop";
-import { Component } from "../components/Input";
+import { Component } from "../components/MyInput";
 import { PassComponent } from "../components/PasswordInput";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
@@ -10,7 +10,7 @@ import { FaPhone } from "react-icons/fa6";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../utils/firebase";
+import { auth, db } from "../utils/userfirebase";
 import { doc, setDoc } from "firebase/firestore";
 
 

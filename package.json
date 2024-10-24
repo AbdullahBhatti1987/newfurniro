@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@nextui-org/accordion": "^2.0.40",
+    "@nextui-org/image": "^2.0.32",
     "@nextui-org/input": "^2.2.5",
     "@nextui-org/modal": "^2.0.41",
     "@nextui-org/pagination": "^2.0.36",

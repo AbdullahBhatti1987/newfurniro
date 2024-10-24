@@ -49,9 +49,9 @@ export function CartSidebar({ totalCart }) {
         className="flex flex-col gap-1 h-fit max-h-[100vh] p-2 shadow-lg overflow-y-auto scrollbar-y-hide"
         open={isOpen}
         onClose={handleClose}
-        onMouseLeave={() => 
+        onMouseOut={() => 
           setTimeout(() => {
-            setIsOpen(false); // Close after 5 seconds
+            setIsOpen(false); 
           }, 1000)
         }
         position="right"

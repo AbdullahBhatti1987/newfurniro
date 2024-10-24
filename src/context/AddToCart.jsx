@@ -4,7 +4,6 @@ export const AddtoCartContext = createContext();
 
 function AddToCartContextProvider({ children }) {
   const [addtoCart, setAddtoCart] = useState([]);
-  const [checkOut, setCheckOut] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   
   useEffect(() => {
@@ -70,8 +69,7 @@ function AddToCartContextProvider({ children }) {
   return (
     <AddtoCartContext.Provider
       value={{
-        checkOut,
-        setCheckOut,
+       
         addtoCart,
         setAddtoCart,
         addItemToCart,

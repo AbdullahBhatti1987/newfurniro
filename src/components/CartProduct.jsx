@@ -23,8 +23,6 @@ export default function CartProduct({
 
 
 
-
-
   return (
     <div className="relative flex flex-row items-center gap-4 text-center border rounded-lg pl-4">
       <input type="checkbox" name="" id="confirm" className="checked:bg-gray-400 text-gray-400" onChange={checkBox} />

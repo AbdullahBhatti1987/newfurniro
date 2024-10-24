@@ -10,7 +10,7 @@ import { CartSidebar } from "./CartSidebar";
 import { UserContext } from "../context/UserContext";
 import { useContext, useEffect, useState } from "react";
 import { DropdownOption } from "./dropdownOption";
-import { auth } from "../utils/firebase";
+import { auth } from "../utils/userfirebase";
 import { signOut } from "firebase/auth";
 import { AddtoCartContext } from "../context/AddToCart";
 import InputwithSearch from "./InputwithSearch";
@@ -24,23 +24,24 @@ export function Component() {
 
   const navigate = useNavigate();
 
-  // const HandleSignOut = async () => {
-  //   await signOut(auth)
-  //     .then(() => {
-  //       console.log("Sign-out successful.");
-  //       navigate("/");
-  //     })
-  //     .catch((error) => {
-  //       console.log("An error happened.", error);
-  //       alert("An error happened.", error);
-  //     });
-  // };
+  const HandleSignOut = async () => {
+    await signOut(auth)
+      .then(() => {
+        console.log("Sign-out successful.");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("An error happened.", error);
+        alert("An error happened.", error);
+      });
+  };
   const value = searchItem; // Ensure value is defined here
 
   useEffect(() => {
     // console.log("isLoading=>", isLoading);
-    {searchItem && console.log("SearchItem=>", searchItem);}
-
+    {
+      searchItem && console.log("SearchItem=>", searchItem);
+    }
   }, [isLoading]);
 
   return (
@@ -49,11 +50,12 @@ export function Component() {
         <Navbar>
           <Navbar.Brand>
             <Link to={"adminlogin"}>
-            <img
-              src="https://s3-alpha-sig.figma.com/img/2727/769b/a74736d502746301ed573ed8940fc322?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=V-KgMF65bBpedJXfxnEh5Re44eKl0ptjo1vHE0H2caKlZSKxSiipCgF9xMEBLT8rrCzA4qLXt6vUNroksYtvS2SrZ4PFU1TG6OtrH5UjO~XMt8JFfNVgS~fQzJiRvpPn7hvXPyXfdgVMgVfyKtFgkwlDXg7B9QBgKybRWGg8BTCd5RlnYtNW57N4FcL3m9o64gdFFannJlge4WJFhm1UKBfZ3js-VcQb6DhAmaNCdg9XL8cr0cbT68Y6XV6g1S3IZcJUjmWtbQhteIxuhhMdTsAiglZLBo1WRY6tIoLAz3Sjq8xJxydvHnf76FX-HmucGkl6FgUjLxbUYIiwEPPCNw__"
-              className="lg:h-16 h-16"
-              alt="Flowbite React Logo"
-            /></Link>
+              <img
+                src="https://s3-alpha-sig.figma.com/img/2727/769b/a74736d502746301ed573ed8940fc322?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=V-KgMF65bBpedJXfxnEh5Re44eKl0ptjo1vHE0H2caKlZSKxSiipCgF9xMEBLT8rrCzA4qLXt6vUNroksYtvS2SrZ4PFU1TG6OtrH5UjO~XMt8JFfNVgS~fQzJiRvpPn7hvXPyXfdgVMgVfyKtFgkwlDXg7B9QBgKybRWGg8BTCd5RlnYtNW57N4FcL3m9o64gdFFannJlge4WJFhm1UKBfZ3js-VcQb6DhAmaNCdg9XL8cr0cbT68Y6XV6g1S3IZcJUjmWtbQhteIxuhhMdTsAiglZLBo1WRY6tIoLAz3Sjq8xJxydvHnf76FX-HmucGkl6FgUjLxbUYIiwEPPCNw__"
+                className="lg:h-16 h-16"
+                alt="Flowbite React Logo"
+              />
+            </Link>
             <span className="self-center whitespace-nowrap text-2xl lg:text-3xl font-bold dark:text-white">
               Furniro
             </span>
@@ -65,42 +67,52 @@ export function Component() {
                   label={<IoFingerPrintSharp className="text-2xl" />}
                   email={user.email}
                   onClick={HandleSignOut}
+           
                   username={user.userName}
                 />
               ) : (
-                <Link to={"/auth/login"}>
+                <Link to={"auth/login"}>
                   <TbUserExclamation className="text-lg lg:text-3xl" />
                 </Link>
               )}
 
-<button onClick={() => {setIsLoading(false);
-   }}>
-        {isLoading && <IoIosSearch className="text-xl lg:text-3xl" />}
-      </button>
+              <button
+                onClick={() => {
+                  setIsLoading(false);
+                }}
+              >
+                {isLoading && <IoIosSearch className="text-xl lg:text-3xl" />}
+              </button>
 
-      {!isLoading && (
-        <InputwithSearch
-          className={"absolute top-3 right-15 z-50"}
-          value={searchItem} // Bind searchItem here
-          onChange={(e) => {
-            setSearchItem(e.target.value);e            
-          }}
-          onClick={()=>setIsLoading(true)}
-          onMouseOut={()=>{setIsLoading(true); setSearchItem("")}}
-        />
-      )}
+              {!isLoading && (
+                <InputwithSearch
+                  className={"absolute top-3 right-15 z-50 transition-all duration-300 ease-in-out"}
+                  value={searchItem} // Bind searchItem here
+                  onChange={(e) => {
+                    setSearchItem(e.target.value);
+                    e;
+                  }}
+                  onClick={() => setIsLoading(true)}
+                  onMouseOut={() => {
+                    setSearchItem("");
+                    setTimeout(() => {
+                      setIsLoading(true);
+                    }, 5000);
+                  }}
+                />
+              )}
 
-      <FaRegHeart className="text-xl lg:text-2xl" />
-      
-      <CartSidebar
-        totalCart={addtoCart.length}
-        onClick={() => {
-          console.log("Search Item:", searchItem); // Log the search item
-          // Perform any action you need with searchItem here
-        }}
-        value={searchItem} // Pass the value here
-      />
-    </div>
+              <FaRegHeart className="text-xl lg:text-2xl" />
+
+              <CartSidebar
+                totalCart={addtoCart.length}
+                onClick={() => {
+                  console.log("Search Item:", searchItem); // Log the search item
+                  // Perform any action you need with searchItem here
+                }}
+                value={searchItem} // Pass the value here
+              />
+            </div>
 
             <Navbar.Toggle />
           </div>

@@ -19,16 +19,23 @@
   --darkColor: #B88E2F;
   --hoverColor: #3A3A3A;
   --lightbg: #FCF8F3;
+  --dashboard: #252c33;
+  --dashboardText: #8f96a6;
 
 
 }
 .text-dark{
   color: #B88E2F!important;
 }
+.dashboardText{
+  color: var(--dashboardText)!important;
+}
 .bg-dark{
   background-color: #B88E2F!important;
 }
-
+.dashboardbgDark{
+  background-color: var(--dashboard)!important;
+}
 .lightColor{
   background-color: var(--lightColor);
 }
@@ -100,4 +107,44 @@ input:focus {
 .scrollbar-hide {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+.content {
+  transition: margin-left 0s; /* or padding-left if preferred */
+}
+
+
+
+.dashboardbgDark {
+  background-color: #2c2c2c; /* Example dark background */
+}
+
+.dashboardText {
+  color: #fff; /* Example text color */
+}
+
+/* 
+@media (min-width: 768) {
+  
+.drawer-open {
+  margin-left: 15%;; 
+}
+  
+} */
+
+.drawer-open {
+  margin-left: 15%;; 
+}
+
+.dropyourimage{
+  background-image: url("/public/images/dropyourimage.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+}
+
+.rightarrow:hover::after {
+  content: ">" !important;
+  padding-left: 10px!important;
 }

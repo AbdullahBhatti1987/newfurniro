@@ -1,6 +1,6 @@
 import React from "react";
 import PageTop from "../components/PageTop";
-import { Component } from "../components/Input";
+import { Component } from "../components/MyInput.jsx";
 import { PassComponent } from "../components/PasswordInput";
 import { Link, useNavigate } from "react-router-dom";
 import { HiMail } from "react-icons/hi";
@@ -8,9 +8,13 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { GrGoogle } from "react-icons/gr";
 
-import { auth } from "../utils/firebase.js";
+import { auth } from "../utils/userfirebase.js";
 import { useState } from "react";
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 
 function Login() {
   const location = useLocation();
@@ -25,19 +29,26 @@ function Login() {
 
   const HandleSignIn = async (e) => {
     e.preventDefault();
-    await signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    const user = userCredential.user;
-    console.log("User successfully Sign In")
-    navigate("/");
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode, errorMessage)
-  });
+    {
+      email === "admin@furniro.com"
+        ? (alert(
+            "Access Denied: Unauthorized login attempt detected. Contact Administrator at the provided contact page."
+          ),
+          navigate("/contact")
+         )
+        : await signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              const user = userCredential.user;
+              console.log("User successfully Sign In");
+              navigate("/");
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              console.log(errorCode, errorMessage);
+            });
+    }
   };
-
 
   const HandleWithGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -55,7 +66,6 @@ function Login() {
         const credential = GoogleAuthProvider.credentialFromError(error);
       });
   };
-
 
   return (
     <div className="">
@@ -100,7 +110,10 @@ function Login() {
               >
                 Login
               </button>
-              <button onClick={HandleWithGoogle} className="darkColor py-4 text-white font-bold rounded-lg text-nowrap w-1/2 flex flex-row justify-center items-center">
+              <button
+                onClick={HandleWithGoogle}
+                className="darkColor py-4 text-white font-bold rounded-lg text-nowrap w-1/2 flex flex-row justify-center items-center"
+              >
                 Login with <GrGoogle className="pl-1 text-2xl" />
                 oogle
               </button>

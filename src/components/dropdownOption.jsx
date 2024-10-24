@@ -1,6 +1,6 @@
 "use client";
 
-// import { Dropdown } from "flowbite-react";
+import { Dropdown } from "flowbite-react";
 import { HiLogout } from "react-icons/hi";
 
 export function DropdownOption({label, username, email, onClick}) {
