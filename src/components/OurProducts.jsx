@@ -1,12 +1,14 @@
-// import Card from "./Card";
-
 import React, { useContext, useEffect, useState } from "react";
 import { AddtoCartContext } from "../context/AddToCart";
-import  Loader  from "../components/Loader";
+import Loader from "../components/Loader";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../utils/userfirebase";
+import Card from "./Card";
+import { data } from "autoprefixer";
 // import { useParams } from "react-router";
 
 function OurProducts({ apiProducts, limit }) {
-  const [products, setProducts] = useState([]);
+  const [productList, setProductList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const {
@@ -17,37 +19,48 @@ function OurProducts({ apiProducts, limit }) {
     addItemToCart,
     lessQuanityFromCart,
     removeItemFromCart,
-    isItemAdded
+    isItemAdded,
   } = useContext(AddtoCartContext);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "products"));
+        const data = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setProductList(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setIsLoading(false);
+        console.log("ProductList =>", productList)
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="bg-white py-12 ">
       <div className="w-10/12 mx-auto ">
         <div className="flex mx-auto gap-4 flex-wrap">
-          {isLoading && (
-            // products.map((data) => ( data.id <= limit &&
-            //   <Card
-            //   key={data.id}
-            //   title={data.title}
-            //   newPrice={data.price}
-            //   oldPrice={(data.price * 1.25).toFixed(2)}
-            //   category={data.category}
-            //   // src={data.thumbnail}
-            //   src={"/images/image106.png"}
-            //   addToCart={()=>{
-            //     addItemToCart(data)
-            //   }}
-            //   buyNow={()=>{console.log("BuyNow this product", data.id)}}
-            //   toViewProduct={`/shop/${data.id}`}
-            //   addtocartBtnText={"Add to Cart"}
-            //   discountPercentage={(data.price * data.discountPercentage / 100).toFixed(2)}
-
-            // />
-            // ))
-            //   ) : (
+          {isLoading ? (
             <Loader />
+          ) : (
+            productList.map((data) => (
+              <Card
+                key={data.productTitle}
+                src={data.productImages[0]}
+                title={data.productTitle}
+                category={data.category}
+                newPrice={data.price}
+                discountPercentage={data.discount}
+                oldPrice={data.oldPrice}
+                // addToCart={()=>addItemToCart(...addtoCart, data)}
+                // You can add more props like onClick, addToCart, buyNow, etc.
+              />
+            ))
           )}
         </div>
       </div>
