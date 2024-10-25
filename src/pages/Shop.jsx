@@ -39,99 +39,10 @@ function Shop() {
       <PageTop heading={"Shop"} linkName={"Shop"} to={"/shop"}/>
       <FilterOptions  />
       <OurProducts apiProducts={""} limit={100}/>
-      <div className="bg-white py-12 ">
+      {/* <div className="bg-white py-12 ">
       <div className="w-10/12 mx-auto ">
         <div className="flex mx-auto gap-4 flex-wrap">
-        <Card              
-              // key={data.id}  
-              title={"Sofa"}
-              newPrice={25000}
-              oldPrice={26500}  
-              category={"Living"}
-              // src={data.thumbnail}
-              src={"/public/images/image 2.png"}
-              addToCart={""}             
-              buyNow={""}
-              toViewProduct={`/shop/single/id`}              
-              addtocartBtnText={"Add to Cart"}
-              discountPercentage={"10%"}
-    
-            />
-            <Card              
-              // key={data.id}  
-              title={"Sofa"}
-              newPrice={25000}
-              oldPrice={26500}  
-              category={"Living"}
-              // src={data.thumbnail}
-              src={"/public/images/image 2.png"}
-              addToCart={""}             
-              buyNow={""}
-              toViewProduct={`/shop/single/id`}              
-              addtocartBtnText={"Add to Cart"}
-              discountPercentage={"10%"}
-    
-            />
-            <Card              
-              // key={data.id}  
-              title={"Sofa"}
-              newPrice={25000}
-              oldPrice={26500}  
-              category={"Living"}
-              // src={data.thumbnail}
-              src={"/public/images/image 2.png"}
-              addToCart={""}             
-              buyNow={""}
-              toViewProduct={`/shop/single/id`}              
-              addtocartBtnText={"Add to Cart"}
-              discountPercentage={"10%"}
-    
-            />
-            <Card              
-              // key={data.id}  
-              title={"Sofa"}
-              newPrice={25000}
-              oldPrice={26500}  
-              category={"Living"}
-              // src={data.thumbnail}
-              src={"/public/images/image 2.png"}
-              addToCart={""}             
-              buyNow={""}
-              toViewProduct={`/shop/single/id`}              
-              addtocartBtnText={"Add to Cart"}
-              discountPercentage={"10%"}
-    
-            />
-            <Card              
-              // key={data.id}  
-              title={"Sofa"}
-              newPrice={25000}
-              oldPrice={26500}  
-              category={"Living"}
-              // src={data.thumbnail}
-              src={"/public/images/image 2.png"}
-              addToCart={""}             
-              buyNow={""}
-              toViewProduct={`/shop/single/id`}              
-              addtocartBtnText={"Add to Cart"}
-              discountPercentage={"10%"}
-    
-            />
-            <Card              
-              // key={data.id}  
-              title={"Sofa"}
-              newPrice={25000}
-              oldPrice={26500}  
-              category={"Living"}
-              // src={data.thumbnail}
-              src={"/public/images/image 2.png"}
-              addToCart={""}             
-              buyNow={""}
-              toViewProduct={`/shop/single/id`}              
-              addtocartBtnText={"Add to Cart"}
-              discountPercentage={"10%"}
-    
-            />
+       
             <Card              
               // key={data.id}  
               title={"Sofa"}
@@ -150,7 +61,7 @@ function Shop() {
 
         </div>
         </div>
-        </div>
+        </div> */}
 
 
       <NextPaggination />

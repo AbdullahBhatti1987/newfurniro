@@ -12,6 +12,7 @@ export default function AccordionNextUi() {
         { title: "Details", to: "/admin/products/details" },
         { title: "Edit", to: "/admin/products/edit" },
         { title: "Create", to: "/admin/products/addproduct" },
+        { title: "NewCreate", to: "/admin/products/createproduct" },
       ],
       Category: [
         { title: "List", to: "/admin/categories/list" },
