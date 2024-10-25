@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import MainHero from "../components/MainHero";
 import BrowseTheRange from "../components/BrowseTheRange";
-import OurProducts from "../components/OurProducts";
+// import OurProducts from "../components/OurProducts";
 import { Component } from "../components/CarouselBox";
 import Heading from "../components/Heading";
 import Gallery from "../components/Gallery";
@@ -25,7 +25,7 @@ function Home() {
           <Heading text={"Our Products"} />
         </div>
       </div>
-      <OurProducts apiProducts={""} limit={8} />
+      {/* <OurProducts apiProducts={""} limit={8} /> */}
       <Component />
       <Gallery />
 

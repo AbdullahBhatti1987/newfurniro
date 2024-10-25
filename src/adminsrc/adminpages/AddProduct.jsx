@@ -17,9 +17,31 @@ export default function ProductCreate() {
     productImages: [],
   });
 
+  const furnitureCategories = [
+    { id: "1", name: "Living Room" },
+    { id: "2", name: "Bedroom" },
+    { id: "3", name: "Dining Room" },
+    { id: "4", name: "Office" },
+    { id: "5", name: "Outdoor" },
+    { id: "6", name: "Storage" },
+    { id: "7", name: "Kids Furniture" },
+    { id: "8", name: "Home Decor" },
+    { id: "9", name: "Lighting" },
+    { id: "10", name: "Sofas" },
+    { id: "11", name: "Chairs" },
+    { id: "12", name: "Tables" },
+    { id: "13", name: "Beds" },
+    { id: "14", name: "Cabinets" },
+    { id: "15", name: "Dressers" },
+    { id: "16", name: "Bookshelves" },
+    { id: "17", name: "Rugs" },
+    { id: "18", name: "Mirrors" },
+    { id: "19", name: "TV Stands" },
+    { id: "20", name: "Patio Furniture" },
+  ];
+
   const [files, setFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
-  const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
@@ -32,7 +54,7 @@ export default function ProductCreate() {
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
     if (selectedFiles.length + files.length > 5) {
-      setError("You can upload a maximum of 5 images.");
+      console.log("You can upload a maximum of 5 images.");
       return;
     }
     const updatedFiles = [...files, ...selectedFiles];
@@ -42,71 +64,83 @@ export default function ProductCreate() {
     setImagePreviews(imageUrls);
   };
 
-  const handleSubmit = (e) => {
+  const handleCreateProduct = async (e) => {
     e.preventDefault();
-    setError("");
-    handleCreateProduct();
-  };
-
-  const handleCreateProduct = async () => {
     setIsSubmitting(true);
+  
     try {
-
-      const productRef = doc(db, "products", productData.category.toLowerCase());
-      const productTitleRef = doc(productRef, productData.title.toLowerCase());
-
-      const productSnap = await getDoc(productTitleRef);
-
-      if (productSnap.exists()) {
-        setError("Product name already exists, please choose another one.");
+      // Step 1: Validate category and title
+      if (!productData.category || !productData.productTitle) {
+        console.error("Category or Title is missing.");
+        alert("Category and Title are required.");
         setIsSubmitting(false);
         return;
       }
-
+  
+      console.log("Creating product reference...");
+      const productRef = doc(db, "products", productData.category.toLowerCase());
+      console.log("Product reference created:", productRef.path);
+      
+      // Step 2: Check if product title already exists
+      console.log("Checking if product title already exists...");
+      const productSnap = await getDoc(productRef);
+      if (productSnap.exists()) {
+        console.warn("This product title already exists.");
+        alert("This product title already exists. Please choose a different title.");
+        setIsSubmitting(false);
+        return;
+      }
+      console.log("Product title is available.");
+  
+      // Step 3: Upload images if any files are provided
       let imageUrls = [];
       if (files.length > 0) {
+        console.log(`Found ${files.length} file(s) to upload.`);
         for (const file of files) {
-          const storageRef = ref(storage, `products/${file.name}`);
+          console.log(`Uploading file: ${file.name}`);
+          const storageRef = ref(storage, `products/${productData.category.toLowerCase()}/${file.name}`);
           const snapshot = await uploadBytes(storageRef, file);
+          console.log(`Uploaded ${file.name} successfully. Snapshot:`, snapshot);
+          
           const downloadURL = await getDownloadURL(snapshot.ref);
           imageUrls.push(downloadURL);
+          console.log(`Download URL for ${file.name}:`, downloadURL);
         }
+      } else {
+        console.log("No files to upload.");
       }
-
-      const newproductData = {
+  
+      // Step 4: Create new product data object
+      const newProductData = {
         ...productData,
         productImages: imageUrls,
       };
-
-      await setDoc(productRef, newproductData);
-      console.log("Product created successfully:", newproductData.productTitle);
-      window.location.reload();
-
-      setError("");
-      setFiles([]);
-      setImagePreviews([]);
-      setProductData({
-        productTitle: "",
-        createdBy: "",
-        price: "",
-        discount: "",
-        sku: "",
-        category: "",
-        stock: "",
-        description: "",
-        productImages: [],
-      });
-    } catch (e) {
-      setError("An error occurred while creating the product.");
+      console.log("New product data created:", newProductData);
+  
+      // Step 5: Set the new product document in Firestore
+      console.log("Setting the new product document in Firestore...");
+      await setDoc(productRef, newProductData);
+      console.log("Product created successfully:", newProductData.productTitle);
+  
+      // Step 6: Reset form and handle any necessary cleanup
+      console.log("Resetting form...");
+      HandleReset();
+      console.log("Form reset completed.");
+      
+    } catch (error) {
+      console.error("Error during product creation:", error);
     } finally {
       setIsSubmitting(false);
+      console.log("Submission state reset.");
     }
   };
-
-  const handleReset = () => {
+  
+  
+  
+  
+  const HandleReset = () => {
     setFiles([]);
     setImagePreviews([]);
-    setError("");
     setProductData({
       productTitle: "",
       createdBy: "",
@@ -118,17 +152,11 @@ export default function ProductCreate() {
       description: "",
       productImages: [],
     });
-  };
 
-  const handleShowProduct = () => {
-    // Logic to show products can be implemented here
-    console.log("Showing products...");
+    // const handleShowProduct = () => {
+    //   console.log("Showing products...");
+    // };
   };
-
-  const handleCancel = () => {
-    handleReset();
-  };
-
   return (
     <div className="w-full min-h-screen bg-gray-600">
       <div className="w-11/12 bg-gray-300 mx-auto">
@@ -150,25 +178,31 @@ export default function ProductCreate() {
                     src="https://via.placeholder.com/150"
                     className="w-full min-h-36 border-2 rounded-lg"
                     alt="Category Preview"
-                    onClick={() => document.getElementById('fileInput').click()}
+                    onClick={() => document.getElementById("fileInput").click()}
                   />
                 )}
               </div>
 
               <div className="second w-full flex flex-col py-4">
-                <h3 className="text-xl">{productData.productTitle || "Product Name"}</h3>
+                <h3 className="text-xl">
+                  {productData?.productTitle || "Product Name"}
+                </h3>
                 <div className="w-full parent flex flex-row justify-between items-start">
                   <div className="w-1/3 child flex flex-col justify-start gap-1">
                     <p className="text-gray-600 text-sm">Created By :</p>
-                    <p className="font-semibold">{productData.createdBy || "Seller"}</p>
+                    <p className="font-semibold">
+                      {productData?.createdBy || "Seller"}
+                    </p>
                   </div>
                   <div className="w-1/3 child flex flex-col justify-start gap-1">
                     <p className="text-gray-600 text-sm">Stock :</p>
-                    <p className="font-semibold">{productData.stock || "N/A"}</p>
+                    <p className="font-semibold">
+                      {productData?.stock || "N/A"}
+                    </p>
                   </div>
                   <div className="w-1/3 child flex flex-col justify-start gap-1">
                     <p className="text-gray-600 text-sm">ID :</p>
-                    <p className="font-semibold">{productData.sku || "N/A"}</p>
+                    <p className="font-semibold">{productData?.sku || "N/A"}</p>
                   </div>
                 </div>
               </div>
@@ -177,21 +211,20 @@ export default function ProductCreate() {
                 <Button
                   text={"Show Product"}
                   className="w-1/2 font-semibold"
-                  onClick={handleShowProduct}
+                  onClick={""}
                 />
                 <Button
                   text={"Cancel"}
                   className="w-1/2 font-semibold"
-                  onClick={handleCancel}
+                  onClick={() => HandleReset()}
                 />
               </div>
             </div>
-            {error && <p className="text-red-500">{error}</p>}
           </div>
 
           <div className="form w-9/12 flex flex-col gap-4">
             <form
-              onSubmit={handleSubmit}
+              onSubmit={handleCreateProduct}
               className="w-full mx-auto p-6 bg-white shadow-lg rounded-lg"
             >
               <div className="dropyourimage min-h-36">
@@ -204,13 +237,16 @@ export default function ProductCreate() {
                   className="hidden"
                 />
                 <div
-                  className="w-full min-h-36 bg-gray-200 flex items-center justify-center border-dashed border-2 border-gray-400 cursor-pointer"
+                  className="w-full min-h-36 bg-white flex items-center justify-center border-dashed border-2 border-gray-400 cursor-pointer"
                   onClick={() => document.getElementById("fileInput").click()}
                 >
                   {imagePreviews.length > 0 ? (
-                    <div className="w-full flex flex-row justify-between items-center gap-4 p-2">
+                    <div className="w-full flex flex-row justify-between items-center gap-4 p-2 bg-white">
                       {imagePreviews.map((imageUrl, index) => (
-                        <div key={index} className="w-1/5 h-36 p-2 flex justify-center items-center">
+                        <div
+                          key={index}
+                          className="w-1/5 h-36 p-2 flex justify-center items-center"
+                        >
                           <div className="w-full h-full bg-white rounded-lg shadow-lg overflow-hidden">
                             <img
                               src={imageUrl}
@@ -222,7 +258,7 @@ export default function ProductCreate() {
                       ))}
                     </div>
                   ) : (
-                    <p className="text-center">Click to choose up to 5 images</p>
+                    <img className="" src="/public/images/dropyourimage.png" />
                   )}
                 </div>
               </div>
@@ -309,20 +345,26 @@ export default function ProductCreate() {
                   <label className="block text-gray-700 text-sm font-bold mb-2">
                     Category:
                   </label>
-                  <input
-                    type="text"
+                  <select
                     name="category"
                     value={productData.category}
                     onChange={handleChange}
-                    placeholder="Enter Category"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
-                  />
+                    required
+                  >
+                    <option value="">Select Category</option>
+                    {furnitureCategories.map((category) => (
+                      <option key={category.id} value={category.name}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
               <div className="w-full mb-6">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Stock:
+                  Stock Quantity:
                 </label>
                 <input
                   type="number"
@@ -351,8 +393,9 @@ export default function ProductCreate() {
               <div className="w-full flex flex-row justify-center">
                 <Button
                   text={isSubmitting ? "Creating..." : "Create Product"}
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="w-full bg-orange-400 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="submit"
+                  disabled={isSubmitting}
                 />
               </div>
             </form>

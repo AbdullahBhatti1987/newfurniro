@@ -20,7 +20,7 @@ function AdminDashboard() {
         backdrop={false}
         open={isOpen}
         onClose={handleClose}
-        className="dashboardbgDark lg:w-[15%]"
+        className="dashboardbgDark lg:w-[20%]"
       >
         <Drawer.Header title="DASHBOARD" titleIcon={PiCodesandboxLogoBold} />
         <Drawer.Items>

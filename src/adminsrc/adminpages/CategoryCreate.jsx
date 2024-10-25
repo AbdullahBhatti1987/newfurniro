@@ -140,11 +140,11 @@ export default function CategoryCreate() {
                 <Button
                   text={"Create Category"}
                   className="w-1/2"
-                  onClick={handleCreateCategory}
+                  onClick={handleShowCategory}
                   disabled={isSubmitting} // Disable when submitting
                 />
                 <Button
-                  text={"Reset Category"}
+                  text={"Cancel"}
                   className="w-1/2 bg-orange-400 text-white"
                   onClick={handleReset}
                 />
@@ -155,7 +155,7 @@ export default function CategoryCreate() {
 
           <div className="form w-9/12 flex flex-col gap-4">
             <form
-              onSubmit={handleSubmit}
+              onSubmit={handleCreateCategory}
               className="w-full mx-auto p-6 bg-white shadow-lg rounded-lg"
             >
               <div className="dropyourimage min-h-36">
@@ -167,7 +167,7 @@ export default function CategoryCreate() {
                   className="hidden"
                 />
                 <div
-                  className="w-full min-h-36 bg-gray-200 flex items-center justify-center border-dashed border-2 border-gray-400 cursor-pointer"
+                  className="w-full min-h-36 bg-white flex items-center justify-center border-dashed border-2 border-gray-400 cursor-pointer"
                   onClick={() => document.getElementById('fileInput').click()}
                 >
                   {imagePreview ? (
@@ -177,7 +177,8 @@ export default function CategoryCreate() {
                       className="w-full max-h-48 object-contain"
                     />
                   ) : (
-                    <p>Click to choose an image</p>
+                    <img className="" src="/public/images/dropyourimage.png" />
+                   
                   )}
                 </div>
               </div>

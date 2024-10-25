@@ -1,4 +1,4 @@
-"use client";
+
 
 import { Navbar } from "flowbite-react";
 import { FaRegHeart } from "react-icons/fa";
@@ -38,7 +38,7 @@ export function Component() {
   const value = searchItem; // Ensure value is defined here
 
   useEffect(() => {
-    // console.log("isLoading=>", isLoading);
+    console.log("isLoading=>", isLoading);
     {
       searchItem && console.log("SearchItem=>", searchItem);
     }
@@ -66,20 +66,19 @@ export function Component() {
                 <DropdownOption
                   label={<IoFingerPrintSharp className="text-2xl" />}
                   email={user.email}
-                  onClick={HandleSignOut}
-           
+                  onClick={HandleSignOut}           
                   username={user.userName}
                 />
               ) : (
-                <Link to={"auth/login"}>
+                <Link to="auth/login">
                   <TbUserExclamation className="text-lg lg:text-3xl" />
                 </Link>
               )}
 
               <button
-                onClick={() => {
-                  setIsLoading(false);
-                }}
+                onClick={
+                  ()=>setIsLoading(false)
+                }
               >
                 {isLoading && <IoIosSearch className="text-xl lg:text-3xl" />}
               </button>
@@ -87,10 +86,9 @@ export function Component() {
               {!isLoading && (
                 <InputwithSearch
                   className={"absolute top-3 right-15 z-50 transition-all duration-300 ease-in-out"}
-                  value={searchItem} // Bind searchItem here
+                  value={searchItem} 
                   onChange={(e) => {
-                    setSearchItem(e.target.value);
-                    e;
+                    setSearchItem(e.target.value);                    
                   }}
                   onClick={() => setIsLoading(true)}
                   onMouseOut={() => {
@@ -106,11 +104,8 @@ export function Component() {
 
               <CartSidebar
                 totalCart={addtoCart.length}
-                onClick={() => {
-                  console.log("Search Item:", searchItem); // Log the search item
-                  // Perform any action you need with searchItem here
-                }}
-                value={searchItem} // Pass the value here
+                // onClick={HandleSearch}
+                // value={searchItem} // Pass the value here
               />
             </div>
 
@@ -118,31 +113,31 @@ export function Component() {
           </div>
           <Navbar.Collapse className="transition-all duration-300 ease-in-out">
             <Link
-              to="/"
+              to={"/"}
               className="text-center p-2 border rounded-lg lg:border-0 md:border-0 lg:hover:bg-transparent md:hover:bg-transparent lg:p-0 md:p-0 hover:bg-gray-200 md:text-lg lg:text-lg font-semibold cursor-pointer dark:text-white hover:text-gray-500 focus:text-black"
             >
               Home
             </Link>
             <Link
-              to="/shop"
+              to={"/shop"}
               className="text-center p-2 border rounded-lg lg:border-0 md:border-0 lg:hover:bg-transparent md:hover:bg-transparent lg:p-0 md:p-0 hover:bg-gray-200 md:text-lg lg:text-lg font-semibold cursor-pointer dark:text-white hover:text-gray-500 focus:text-black"
             >
               Shop
             </Link>
             <Link
-              to="/blog"
+              to={"/blog"}
               className="text-center p-2 border rounded-lg lg:border-0 md:border-0 lg:hover:bg-transparent md:hover:bg-transparent lg:p-0 md:p-0 hover:bg-gray-200 md:text-lg lg:text-lg font-semibold cursor-pointer dark:text-white hover:text-gray-500 focus:text-black"
             >
               Blog
             </Link>
             <Link
-              to="/about"
+              to={"/about"}
               className="text-center p-2 border rounded-lg lg:border-0 md:border-0 lg:hover:bg-transparent md:hover:bg-transparent lg:p-0 md:p-0 hover:bg-gray-200 md:text-lg lg:text-lg font-semibold cursor-pointer dark:text-white hover:text-gray-500 focus:text-black"
             >
               About
             </Link>
             <Link
-              to="/contact"
+              to={"/contact"}
               className="text-center p-2 border rounded-lg lg:border-0 md:border-0 lg:hover:bg-transparent md:hover:bg-transparent lg:p-0 md:p-0 hover:bg-gray-200 md:text-lg lg:text-lg font-semibold cursor-pointer dark:text-white hover:text-gray-500 focus:text-black"
             >
               Contact

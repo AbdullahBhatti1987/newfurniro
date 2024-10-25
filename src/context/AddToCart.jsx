@@ -69,7 +69,8 @@ function AddToCartContextProvider({ children }) {
   return (
     <AddtoCartContext.Provider
       value={{
-       
+        isLoaded,
+        setIsLoaded,
         addtoCart,
         setAddtoCart,
         addItemToCart,

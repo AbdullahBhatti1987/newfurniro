@@ -74,8 +74,7 @@ function Footer() {
   </h3>
   <div className="flex lg:w-full md:w-2/3 gap-4 lg:flex-row md:flex-row flex-col">
     <input
-      type="email"
-      name="email"
+      type="email"    
       id="subscribeEmail"
       className="pl-0 lg:w-2/3 md:w-2/3 border-b-2 border-t-0 border-l-0 border-r-0 border-gray-600 hover:cursor-pointer text-sm"
       placeholder="Enter Your Email Address"
