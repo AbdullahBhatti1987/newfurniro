@@ -10,12 +10,12 @@ function AddToCartContextProvider({ children }) {
     if (isLoaded) {
       localStorage.setItem("addtoCart", JSON.stringify(addtoCart));
     }
-    console.log("cart =>", addtoCart)
+    // console.log("cart =>", addtoCart)
   }, [addtoCart]);
 
   useEffect(() => {
     const itemsFromStorage = localStorage.getItem("addtoCart");
-    console.log("itemsFromStorage=>", itemsFromStorage);
+    // console.log("itemsFromStorage=>", itemsFromStorage);
     if (itemsFromStorage) {
       setAddtoCart([...JSON.parse(itemsFromStorage)]);
       setIsLoaded(true);
@@ -24,7 +24,7 @@ function AddToCartContextProvider({ children }) {
 
   useEffect(() => {
     const itemsFromStorage = localStorage.getItem("addtoCart");
-    console.log("itemsFromStorage=>", itemsFromStorage);
+    // console.log("itemsFromStorage=>", itemsFromStorage);
     if (itemsFromStorage) {
       setAddtoCart([...JSON.parse(itemsFromStorage)]);
       setIsLoaded(true);

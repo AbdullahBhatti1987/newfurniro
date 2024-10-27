@@ -4,14 +4,13 @@ import Loader from "../components/Loader";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../utils/userfirebase";
 import Card from "./Card";
-import { useParams } from "react-router-dom";
+import { ProductsContext } from "../context/Products";
 
 function OurProducts() {
-  const [productList, setProductList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   const { isLoaded, setIsLoaded, addtoCart, addItemToCart } =
     useContext(AddtoCartContext);
+    const {isProductsLoaded, setIsProductsLoaded, products, setProducts} = useContext(ProductsContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,7 +20,8 @@ function OurProducts() {
           id: doc.id,
           ...doc.data(),
         }));
-        setProductList(data);
+        setIsProductsLoaded(true)
+        setProducts(data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -29,7 +29,6 @@ function OurProducts() {
     };
     fetchData();
   }, [addtoCart]);
-  const { id } = useParams();
 
   return (
     <div className="bg-white py-12">
@@ -38,8 +37,8 @@ function OurProducts() {
           {isLoading ? (
             <Loader />
           ) : (
-            productList.map((data) => (
-              <Card              
+            products.map((data) => (
+              <Card
                 key={data.id}
                 src={data.productImages[0]}
                 title={data.productTitle}
@@ -49,12 +48,15 @@ function OurProducts() {
                 oldPrice={data.oldPrice}
                 addToCart={() => {
                   setIsLoaded(true);
-                  addItemToCart(data);                  
+                  addItemToCart(data);
                 }}
-                toViewProduct={()=>{id}}
-                find={addtoCart.some((item) => item.id === data.id) ? "Already In Cart" : "Add to Cart"}
+                toViewProduct={`/shop/${data.id}`}  // Passing the correct path
+                find={
+                  addtoCart.some((item) => item.id === data.id)
+                    ? "Already In Cart"
+                    : "Add to Cart"
+                }
                 disabled={addtoCart.some((item) => item.id === data.id)}
-                
               />
             ))
           )}

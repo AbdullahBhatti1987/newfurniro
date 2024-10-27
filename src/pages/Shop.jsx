@@ -6,7 +6,7 @@ import OurProducts from "../components/OurProducts";
 import Banner from "../components/Banner";
 import PageTop from "../components/PageTop";
 import NextPaggination from "../components/Pagination";
-import Card from "../components/Card";
+
 import { AddtoCartContext } from "../context/AddToCart";
 
 function Shop() {
@@ -25,14 +25,13 @@ function Shop() {
     isItemAdded,
   } = useContext(AddtoCartContext);
 
-  
-
+  const { id } = useParams(); // id will now be populated if route is /shop/:id
 
   return (
     <div className="">
       <PageTop heading={"Shop"} linkName={"Shop"} to={"/shop"} />
       <FilterOptions />
-      <OurProducts id={id}/>
+      <OurProducts toViewProduct={id} />
       <NextPaggination />
       <Banner />
     </div>

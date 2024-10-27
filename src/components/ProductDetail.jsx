@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 
 function ProductDetail({
   title,
@@ -12,9 +12,8 @@ function ProductDetail({
   thumbnail3,
   thumbnail4,
   onClick,
-  discountPercentage
+  discountPercentage,
 }) {
-
   return (
     <div className="lg:w-10/12 w-11/12 mx-auto py-12 flex lg:flex-row md:flex-row flex-col justify-stretch items-start gap-8">
       {/* Left Div */}
@@ -41,16 +40,15 @@ function ProductDetail({
             alt="..."
           />
         </div>
-        <div className="right lg:w-10/12 w-full shadow-lg rounded-2xl flex justify-center items-center overflow-hidden ">
+        <div className="right lg:w-10/12 w-full shadow-lg rounded-2xl flex justify-center items-center overflow-hidden relative">
           <img
-            className="rounded-2xl transition duration-300 hover:scale-150"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-130"
             src={mainImage}
-            alt="..."
+            alt="Product Image"
           />
         </div>
       </div>
 
- 
       <div className="right lg:w-6/12 md:w-6/12 w-full border-b-2 p-6">
         <div className="flex flex-col gap-3">
           <h1 className="lg:text-3xl text-2xl font-bold text-gray-800">
@@ -92,15 +90,11 @@ function ProductDetail({
             <p className="text-gray-600 font-semibold mb-1">Discount</p>
             <div className="flex flex-row gap-3">
               <span className="text-red-500">{discountPercentage} %</span>
-
             </div>
             <p className="text-gray-600 font-semibold mb-1">Reviews</p>
-            <div className="flex flex-row gap-3">
-              
+            <div className="flex flex-row gap-3"></div>
 
-            </div>
-          
-          {/* ==============Color Selection Div================= */}
+            {/* ==============Color Selection Div================= */}
             {/* <p className="text-gray-600 font-semibold mb-1">Color</p> */}
             {/* <div className="flex flex-row gap-3">
               <button className="bg-green-800 w-8 h-8 rounded-full border-2 border-transparent focus:outline-none focus:border-green-800"></button>
@@ -109,8 +103,6 @@ function ProductDetail({
             </div> */}
           </div>
           <div className="flex flex-row gap-4 mt-4">
-           
-
             <button
               onClick={onClick}
               className="flex items-center justify-center text-nowrap px-4 lg:px-8 py-2 text-lg font-semibold border border-black rounded-xl shadow-lg hover:bg-gray-100 active:shadow-sm"
