@@ -76,6 +76,7 @@ function Card({
           onClick={addToCart}
           className="addToCartBtn darkFont text-nowrap bg-white opacity-100 min-w-24 lg:min-w-36 py-2 font-bold lg:text-md md:text-sm text-xs"
           disabled={disabled}
+                    
         >{find}
         </button>
 

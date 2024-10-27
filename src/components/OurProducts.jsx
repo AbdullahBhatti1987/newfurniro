@@ -5,12 +5,21 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../utils/userfirebase";
 import Card from "./Card";
 import { ProductsContext } from "../context/Products";
+import Notification from "./Notification";
 
 function OurProducts() {
   const [isLoading, setIsLoading] = useState(true);
-  const { isLoaded, setIsLoaded, addtoCart, addItemToCart } =
-    useContext(AddtoCartContext);
-    const {isProductsLoaded, setIsProductsLoaded, products, setProducts} = useContext(ProductsContext);
+  const [showNotification, setShowNotification] = useState(false);
+  const [loadNotification, setLoadNotification] = useState(true);
+  const [notificationText, setNotificationText] = useState("");
+  
+  const {
+    addtoCart,
+    addItemToCart,
+  } = useContext(AddtoCartContext);
+
+  const { setIsProductsLoaded, products, setProducts } =
+    useContext(ProductsContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +29,6 @@ function OurProducts() {
           id: doc.id,
           ...doc.data(),
         }));
-        setIsProductsLoaded(true)
         setProducts(data);
         setIsLoading(false);
       } catch (error) {
@@ -28,7 +36,16 @@ function OurProducts() {
       }
     };
     fetchData();
-  }, [addtoCart]);
+  }, []);
+
+  const handleAddToCart = (data) => {
+    addItemToCart(data);
+    setNotificationText("Add to Cart");
+    setShowNotification(true);
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 3000); 
+  };
 
   return (
     <div className="bg-white py-12">
@@ -46,11 +63,8 @@ function OurProducts() {
                 newPrice={data.price}
                 discountPercentage={data.discount}
                 oldPrice={data.oldPrice}
-                addToCart={() => {
-                  setIsLoaded(true);
-                  addItemToCart(data);
-                }}
-                toViewProduct={`/shop/${data.id}`}  // Passing the correct path
+                addToCart={() => handleAddToCart(data)}
+                toViewProduct={`/shop/${data.id}`}
                 find={
                   addtoCart.some((item) => item.id === data.id)
                     ? "Already In Cart"
@@ -62,6 +76,7 @@ function OurProducts() {
           )}
         </div>
       </div>
+      {showNotification && <Notification text={notificationText} />}
     </div>
   );
 }

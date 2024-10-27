@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import Notification from "../components/Notification";
 
 export const AddtoCartContext = createContext();
 
@@ -9,6 +10,7 @@ function AddToCartContextProvider({ children }) {
   useEffect(() => {
     if (isLoaded) {
       localStorage.setItem("addtoCart", JSON.stringify(addtoCart));
+     
     }
     // console.log("cart =>", addtoCart)
   }, [addtoCart]);
