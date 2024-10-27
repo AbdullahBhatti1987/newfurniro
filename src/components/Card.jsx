@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { IoShareSocialSharp } from "react-icons/io5";
 import { MdOutlineCompareArrows } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { AddtoCartContext } from "../context/AddToCart";
 
 function Card({
   src,
@@ -15,23 +16,28 @@ function Card({
   addToCart,
   buyNow,
   toViewProduct,
-
+  find,
+  disabled
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
+  const { isLoaded, addtoCart, setIsLoaded, addItemToCart } =
+    useContext(AddtoCartContext);
+
   return (
-    <div
+    <div 
       className="w-[47%] md:w-[30%] lg:w-[23%] relative overflow-hidden group shadow-md border p-4"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
- 
     >
       <div className="lg:h-72 md:64 h-40">
-      <img
-        className={`w-full h-full object-cover transform transition-transform duration-500 ${isHovered ? "scale-110" : "scale-100"}`}
-        src={src}
-        alt={alt}
-      />
+        <img
+          className={`w-full h-full object-cover transform transition-transform duration-500 ${
+            isHovered ? "scale-110" : "scale-100"
+          }`}
+          src={src}
+          alt={alt}
+        />
       </div>
       <div className="p-2 md:p-4 flex flex-col justify-between flex-grow">
         <h3 className="font-bold lg:text-lg md:text-md text-sm text-start ">
@@ -69,9 +75,10 @@ function Card({
         <button
           onClick={addToCart}
           className="addToCartBtn darkFont text-nowrap bg-white opacity-100 min-w-24 lg:min-w-36 py-2 font-bold lg:text-md md:text-sm text-xs"
-        >
-          Add to Cart
+          disabled={disabled}
+        >{find}
         </button>
+
         <button
           onClick={buyNow}
           className="addToCartBtn darkFont text-nowrap bg-white opacity-100 min-w-24 lg:min-w-36 py-2 font-bold lg:text-md md:text-sm text-xs"

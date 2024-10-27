@@ -1,6 +1,6 @@
 "use client";
 
-// import { Modal } from "flowbite-react";
+import { Modal } from "flowbite-react";
 import { useState } from "react";
 
 export function ImageModal({ src }) {

@@ -19,19 +19,6 @@ function SingleProduct() {
     window.scrollTo(0, 0);
   }, [location]);
 
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   axios
-  //     .get(`https://dummyjson.com/products/${id}`)
-  //     .then((response) => {
-  //       setOneProduct(response.data);
-  //       setIsLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching products:", error);
-  //       setIsLoading(false);
-  //     });
-  // }, [])
 
   const {
     addtoCart,
@@ -42,6 +29,23 @@ function SingleProduct() {
     isItemAdded,
   } = useContext(AddtoCartContext);
 
+
+  useEffect(()=>{
+    addtoCart.map((data)=>{
+        
+    })
+  },[])
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div className="">
       <div className="lightColor w-full">
@@ -50,7 +54,6 @@ function SingleProduct() {
         </div>
       </div>
       <ProductDetail
-        // mainImage={'https://dummyjson.com/image/150'}
         mainImage={oneProduct.thumbnail}
         thumbnail1={'https://dummyjson.com/image/150'}
         thumbnail2={'https://dummyjson.com/image/150'}

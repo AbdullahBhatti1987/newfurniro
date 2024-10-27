@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { BsCart } from "react-icons/bs";
 import { Drawer } from "flowbite-react";
 import DrawerItem from "./DrawerItem";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { AddtoCartContext } from "../context/AddToCart";
 import { UserContext } from "../context/UserContext";
 
@@ -16,6 +16,7 @@ export function CartSidebar({ totalCart }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
   }, [location]);
 
   const handleClose = () => setIsOpen(false);
@@ -58,19 +59,19 @@ export function CartSidebar({ totalCart }) {
 
       >
         <Drawer.Header title="Shopping Cart" />
-        <div className="overflow-y-scroll scrollbar-hide min-h-[60vh]">
-          {/* {addtoCart.map((data) => (
-            <DrawerItem
-              key={data.id}
-              title={data.productTitle}
-              count={data?.quantity}
-              amount={data.price}
-              image={data.productImages[0]}
-              deleteCart={() => removeItemFromCart(data.id)}
-              onClick={() => navigate(`/shop/${data.id}`)}
-            />
+        <div className="overflow-y-scroll scrollbar-hide min-h-[60vh] ">
+        {addtoCart.map((data) => (
+  <DrawerItem              
+    key={data.id}
+    title={data.productTitle}
+    count={data?.quantity}
+    amount={data.price}
+    image={data.productImages[0]}
+    deleteCart={() => removeItemFromCart(data.id)}
+    onClick={() => navigate(`shop/${data.id}`)} 
+  />
+))}
 
-          ))} */}
         </div>
 
         <div className="flex flex-row py-2 border-b-2">
@@ -78,9 +79,9 @@ export function CartSidebar({ totalCart }) {
           <div className="w-4/6 darkFont font-bold">
             $
             <span>
-              {/* {addtoCart
+              {addtoCart
                 .reduce((total, item) => total + item.price * item.quantity, 0)
-                .toFixed(2)} */}
+                .toFixed(2)}
             </span>
           </div>
         </div>

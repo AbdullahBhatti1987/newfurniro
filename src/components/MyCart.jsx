@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AddtoCartContext } from "../context/AddToCart";
 import { UserContext } from "../context/UserContext";
+import Loader from "./Loader";
 
 export default function MyCart() {
   const [confirm, setConfirm] = useState([]);
@@ -39,7 +40,7 @@ export default function MyCart() {
             <h4 className="w-1/12"></h4>
           </div>
           <div className="w-full flex flex-col gap-2 py-2">
-            {addtoCart.map((data) => (
+            {addtoCart ? addtoCart.map((data) => (
               <CartProduct
                 key={data.id}
                 src={data.thumbnail}
@@ -58,7 +59,7 @@ export default function MyCart() {
                 quantity={data.quantity}
                 checkBox={(e) => e.target.checked && setConfirm(...confirm, data)}
               />
-            ))}
+            )) : <Loader/>}
           </div>
         </div>
         <div className="relative right w-4/12 lightColor py-2 md:py-4 lg:py-6 px-4 md:px-8 lg:px-12 flex flex-col justify-start">

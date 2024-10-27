@@ -2,18 +2,26 @@ import React from "react";
 import { IoIosCloseCircle } from "react-icons/io";
 import { Drawer } from "flowbite-react";
 
-export default function DrawerItem({ title, count, amount, image, deleteCart, onClick }) {
+export default function DrawerItem({
+  title,
+  count,
+  amount,
+  image,
+  deleteCart,
+  onClick,
+}) {
   return (
     <Drawer.Items onClick={onClick} className={"shadow-md rounded-xl py-1"}>
-      <div className=" flex flex-row justify-between items-center">
-        <div className=" flex flex-row justify-between gap-2 items-center border rounded-xl p-1">
-          <div className="w-2/6 lightColor rounded-lg">
+      <div className=" flex flex-row justify-between items-center ">
+        <div className=" flex flex-row justify-between gap-2 items-center border rounded-xl p-1 w-full">
+          <div className="w-2/6 h-20 lightColor rounded-lg overflow-hidden flex justify-center items-center relative">
             <img
               src={image}
               alt=""
-              className="rounded-lg"
+              className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
+
           <div className="w-4/6 flex flex-col justify-between items-start gap-2">
             <h4 className="text-md text-wrap truncate">{title}</h4>
             <p className="flex flex-row gap-2">
@@ -25,7 +33,7 @@ export default function DrawerItem({ title, count, amount, image, deleteCart, on
           </div>
           <div>
             <button onClick={deleteCart}>
-            <IoIosCloseCircle className="text-2xl text-gray-400"  />
+              <IoIosCloseCircle className="text-2xl text-gray-400" />
             </button>
           </div>
         </div>
