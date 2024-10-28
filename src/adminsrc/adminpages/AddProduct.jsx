@@ -62,8 +62,8 @@ export default function ProductCreate() {
       img.src = URL.createObjectURL(file);
       img.onload = () => {
         const canvas = document.createElement("canvas");
-        const maxWidth = 1800;
-        const maxHeight = 1800;
+        const maxWidth = 800;
+        const maxHeight = 800;
 
         let width = img.width;
         let height = img.height;

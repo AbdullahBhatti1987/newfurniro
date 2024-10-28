@@ -10,7 +10,7 @@ export function ImageModal({ src }) {
     <>
       <button onClick={() => setOpenModal(true)}>
         <img
-          className="w-2/3 border-2 border-gray-300 rounded-lg shadow-md cursor-pointer"
+          className="w-full border-2 border-gray-300 rounded-lg shadow-md cursor-pointer"
           src={src}
           alt=""
         />
@@ -22,7 +22,7 @@ export function ImageModal({ src }) {
         onClose={() => setOpenModal(false)}
       >
         <Modal.Body>
-          <div className="flex justify-center items-center text-center">
+          <div className=" flex justify-center items-center text-center">
             <img
               className="scale-120 transition-all duration-300 hover:scale-130"
               src={src}

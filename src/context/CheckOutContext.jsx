@@ -1,21 +1,33 @@
 import { createContext, useEffect, useState } from "react";
 
-export const checkOutContext = createContext();
+export const CheckOutContext = createContext();
 
 function CheckOutContextProvider({ children }) {
   const [checkOut, setCheckOut] = useState([]);
+  const [isCheckOut, setIsCheckOut] = useState(false);
+
+
+  useEffect(() => {
+    if (isCheckOut) {
+      localStorage.setItem("checkOut", JSON.stringify(checkOut));     
+    }
+    console.log("checkout =>", checkOut)
+  }, [checkOut]);
 
   useEffect(() => {
     const itemsFromStorage = localStorage.getItem("checkOut");
+    // console.log("itemsFromStorage=>", itemsFromStorage);
     if (itemsFromStorage) {
       setCheckOut([...JSON.parse(itemsFromStorage)]);
+      setIsCheckOut(true);
     }
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("checkOut", JSON.stringify(checkOut));
-    console.log("CheckOut =>", checkOut);
-  }, [checkOut]);
+
+
+
+
+  
 
   function addItemToCheckOut(item) {
     const itemIndex = checkOut.findIndex((data) => data.id === item.id);
@@ -48,8 +60,10 @@ function CheckOutContextProvider({ children }) {
   }
 
   return (
-    <checkOutContext.Provider
+    <CheckOutContext.Provider
       value={{
+        isCheckOut, 
+        setIsCheckOut,
         checkOut,
         setCheckOut,
         addItemToCheckOut,
@@ -59,7 +73,7 @@ function CheckOutContextProvider({ children }) {
       }}
     >
       {children}
-    </checkOutContext.Provider>
+    </CheckOutContext.Provider>
   );
 }
 

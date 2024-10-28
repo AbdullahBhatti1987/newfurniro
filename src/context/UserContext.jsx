@@ -11,7 +11,7 @@ function UserContextProvider({ children }) {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser({ isLogin: true, email: user.email, username: user.userName });
-        // console.log("User login he", user);
+        console.log("User login he", user);
       } else {
         setUser({ isLogin: false, email: "" });
         console.log("User login nahn he");

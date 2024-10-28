@@ -18,7 +18,7 @@ function OurProducts() {
     addItemToCart,
   } = useContext(AddtoCartContext);
 
-  const { setIsProductsLoaded, products, setProducts } =
+  const { products, setProducts } =
     useContext(ProductsContext);
 
   useEffect(() => {

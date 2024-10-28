@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PageTop from "../components/PageTop";
 import { Component } from "../components/MyInput.jsx";
 import { PassComponent } from "../components/PasswordInput";
@@ -15,12 +15,17 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
+import { CheckOutContext } from "../context/CheckOutContext";
 
 function Login() {
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+  const {checkOut} = useContext(CheckOutContext);
+
+
 
   const navigate = useNavigate();
 
@@ -40,7 +45,11 @@ function Login() {
             .then((userCredential) => {
               const user = userCredential.user;
               console.log("User successfully Sign In");
-              navigate("/");
+              {checkOut ? navigate("/checkout") : navigate("/")}
+
+
+
+
             })
             .catch((error) => {
               const errorCode = error.code;
@@ -57,6 +66,7 @@ function Login() {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
+        console.log("Google Account=>", user)
         navigate("/");
       })
       .catch((error) => {

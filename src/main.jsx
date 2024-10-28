@@ -8,6 +8,7 @@ import AuthContextProvider from "./context/AuthContext.jsx";
 import AddtoCartContextProvider from "./context/AddToCart.jsx";
 import { NextUIProvider } from "@nextui-org/react";
 import ProductsContextProvider from "./context/Products.jsx";
+import CheckOutContextProvider from "./context/CheckOutContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -15,9 +16,11 @@ createRoot(document.getElementById("root")).render(
       <ProductsContextProvider>
         <AuthContextProvider>
           <UserContextProvider>
-            {/* <SearchContextProvider> */}
             <AddtoCartContextProvider>
-              <App />
+              <CheckOutContextProvider>
+                {/* <SearchContextProvider> */}
+                <App />
+              </CheckOutContextProvider>
             </AddtoCartContextProvider>
             {/* </SearchContextProvider> */}
           </UserContextProvider>
