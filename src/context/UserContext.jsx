@@ -10,7 +10,7 @@ function UserContextProvider({ children }) {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser({ isLogin: true, email: user.email, username: user.userName });
+        setUser({ isLogin: true, email: user.email, username: user.userName, picture: user.photoURL });
         console.log("User login he", user);
       } else {
         setUser({ isLogin: false, email: "" });

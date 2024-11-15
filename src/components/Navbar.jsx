@@ -1,6 +1,4 @@
-
-
-import { Navbar } from "flowbite-react";
+import { Avatar, Navbar } from "flowbite-react";
 import { FaRegHeart } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
 import { IoFingerPrintSharp } from "react-icons/io5";
@@ -24,6 +22,12 @@ export function Component() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    setTimeout(() => {
+      HandleSignOut();
+    }, 3600000);
+  }, []);
+
   const HandleSignOut = async () => {
     await signOut(auth)
       .then(() => {
@@ -39,6 +43,7 @@ export function Component() {
 
   useEffect(() => {
     console.log("isLoading=>", isLoading);
+    console.log(user);
     {
       searchItem && console.log("SearchItem=>", searchItem);
     }
@@ -64,10 +69,11 @@ export function Component() {
             <div className="flex lg:gap-8 md:gap-4 gap-2 justify-evenly items-center min-w-[25%] me-4">
               {user.isLogin ? (
                 <DropdownOption
-                  label={<IoFingerPrintSharp className="text-2xl" />}
+                  label={<Avatar src={user.picture} size="md" />}
+                  // label={<IoFingerPrintSharp className="text-2xl" />}
                   email={user.email}
-                  onClick={HandleSignOut}           
-                  username={user.userName}
+                  displayName={user.displayName}
+                  onClick={HandleSignOut}
                 />
               ) : (
                 <Link to="auth/login">
@@ -75,20 +81,18 @@ export function Component() {
                 </Link>
               )}
 
-              <button
-                onClick={
-                  ()=>setIsLoading(false)
-                }
-              >
+              <button onClick={() => setIsLoading(false)}>
                 {isLoading && <IoIosSearch className="text-xl lg:text-3xl" />}
               </button>
 
               {!isLoading && (
                 <InputwithSearch
-                  className={"absolute top-3 right-15 z-50 transition-all duration-300 ease-in-out"}
-                  value={searchItem} 
+                  className={
+                    "absolute top-3 right-15 z-50 transition-all duration-300 ease-in-out"
+                  }
+                  value={searchItem}
                   onChange={(e) => {
-                    setSearchItem(e.target.value);                    
+                    setSearchItem(e.target.value);
                   }}
                   onClick={() => setIsLoading(true)}
                   onMouseOut={() => {

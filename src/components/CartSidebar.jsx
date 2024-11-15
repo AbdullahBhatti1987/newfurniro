@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { BsCart } from "react-icons/bs";
 import { Drawer } from "flowbite-react";
 import DrawerItem from "./DrawerItem";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AddtoCartContext } from "../context/AddToCart";
 import { UserContext } from "../context/UserContext";
 

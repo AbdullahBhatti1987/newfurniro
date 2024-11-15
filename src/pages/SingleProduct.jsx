@@ -4,7 +4,6 @@ import { Component } from "../components/Breadcrumb";
 import ProductDetail from "../components/ProductDetail";
 import Descriptions from "../components/Descriptions";
 import Heading from "../components/Heading";
-import OurProducts from "../components/OurProducts";
 
 import { AddtoCartContext } from "../context/AddToCart";
 import { ProductsContext } from "../context/Products";

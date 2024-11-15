@@ -48,17 +48,17 @@ const BillingDetail = () => {
     e.preventDefault();
 
     const formData = {
-      firstName: e.target.firstName.value,
-      lastName: e.target.lastName.value,
-      companyName: e.target.companyName.value,
-      country: e.target.country.value,
-      streetAddress: e.target.streetAddress.value,
-      city: e.target.city.value,
-      province: e.target.province.value,
-      zipCode: e.target.zipCode.value,
-      phone: e.target.phone.value,
-      email: e.target.email.value,
-      additionalInfo: e.target.additionalInfo.value,
+      firstName: e.target.value,
+      lastName: e.target.value,
+      companyName: e.target.value,
+      country: e.target.value,
+      streetAddress: e.target.value,
+      city: e.target.value,
+      province: e.target.value,
+      zipCode: e.target.value,
+      phone: e.target.value,
+      email: e.target.value,
+      additionalInfo: e.target.value,
       paymentMethod: paymentMethod,
     };
 
@@ -118,7 +118,7 @@ const BillingDetail = () => {
               <label className="block text-sm font-medium">
                 Country / Region
               </label>
-              <select value={userData?.country} className="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+              <select defaultValue={userData?.country} className="mt-1 block w-full p-2 border border-gray-300 rounded-md">
                 <option>Pakistan</option>
               </select>
             </div>
@@ -145,7 +145,7 @@ const BillingDetail = () => {
               </div>
               <div className="w-1/2">
                 <label className="block text-sm font-medium">Province</label>
-                <select value={userData?.province} className="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                <select defaultValue={userData?.province} className="mt-1 block w-full p-2 border border-gray-300 rounded-md">
                   <option>Sindh</option>
                   <option>Punjab</option>
                   <option>Balochistan</option>
