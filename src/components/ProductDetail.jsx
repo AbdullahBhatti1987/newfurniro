@@ -1,4 +1,5 @@
-import React from "react";
+
+import QuantityOption from "./QuantityOption";
 
 function ProductDetail({
   title,
@@ -13,6 +14,9 @@ function ProductDetail({
   thumbnail4,
   onClick,
   discountPercentage,
+  onClickAdd,
+  quantity,
+  onClickLess,
 }) {
   return (
     <div className="lg:w-10/12 w-11/12 mx-auto py-12 flex lg:flex-row md:flex-row flex-col justify-stretch items-start gap-8">
@@ -73,34 +77,18 @@ function ProductDetail({
           </p>
 
           <div className="lg:w-3/12 md:w-6/12 w-full">
-            <p className="text-gray-600 font-semibold mb-1">Size</p>
-            <div className="flex flex-row gap-3">
-              <button className="bg-gray-200 p-2 w-10 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500">
-                L
-              </button>
-              <button className="bg-gray-200 p-2 w-10 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500">
-                XL
-              </button>
-              <button className="bg-gray-200 p-2 w-10 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500">
-                XS
-              </button>
-            </div>
-          </div>
-          <div className="lg:w-3/12 md:w-6/12 w-full">
             <p className="text-gray-600 font-semibold mb-1">Discount</p>
             <div className="flex flex-row gap-3">
-              <span className="text-red-500">{discountPercentage} %</span>
+              <span className="text-red-500">{discountPercentage}%</span>
             </div>
             <p className="text-gray-600 font-semibold mb-1">Reviews</p>
             <div className="flex flex-row gap-3"></div>
 
             {/* ==============Color Selection Div================= */}
-            {/* <p className="text-gray-600 font-semibold mb-1">Color</p> */}
-            {/* <div className="flex flex-row gap-3">
-              <button className="bg-green-800 w-8 h-8 rounded-full border-2 border-transparent focus:outline-none focus:border-green-800"></button>
-              <button className="bg-purple-800 w-8 h-8 rounded-full border-2 border-transparent focus:outline-none focus:border-green-800"></button>
-              <button className="bg-black w-8 h-8 rounded-full border-2 border-transparent focus:outline-none focus:border-green-800"></button>
-            </div> */}
+
+            <div className="flex flex-row gap-3">
+            
+            </div>
           </div>
           <div className="flex flex-row gap-4 mt-4">
             <button

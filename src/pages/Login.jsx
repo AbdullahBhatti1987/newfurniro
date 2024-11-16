@@ -45,11 +45,8 @@ function Login() {
             .then((userCredential) => {
               const user = userCredential.user;
               console.log("User successfully Sign In");
+              // {checkOut ? navigate("/checkout") : navigate("/")}
               {checkOut ? navigate("/checkout") : navigate("/")}
-
-
-
-
             })
             .catch((error) => {
               const errorCode = error.code;
@@ -68,12 +65,14 @@ function Login() {
         const user = result.user;
         console.log("Google Account=>", user)
         navigate("/");
+        window.href= "/";
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         const email = error.customData.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(errorMessage)
       });
   };
 

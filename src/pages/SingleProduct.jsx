@@ -3,7 +3,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { Component } from "../components/Breadcrumb";
 import ProductDetail from "../components/ProductDetail";
 import Descriptions from "../components/Descriptions";
-import Heading from "../components/Heading";
+// import Heading from "../components/Heading";
 
 import { AddtoCartContext } from "../context/AddToCart";
 import { ProductsContext } from "../context/Products";
@@ -11,7 +11,7 @@ import { ProductsContext } from "../context/Products";
 function SingleProduct() {
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
-  const { addtoCart, addItemToCart } = useContext(AddtoCartContext);
+  const { addItemToCart } = useContext(AddtoCartContext);
   const { products } = useContext(ProductsContext);
   const { id } = useParams();
 
@@ -33,17 +33,36 @@ function SingleProduct() {
       {viewProduct && (
         <ProductDetail
           mainImage={viewProduct?.productImages[0]}
-          thumbnail1={viewProduct.productImages[1]? viewProduct?.productImages[1] : 'https://dummyjson.com/image/150' }
-          thumbnail2={viewProduct.productImages[2]? viewProduct?.productImages[2] : 'https://dummyjson.com/image/150' }
-          thumbnail3={viewProduct.productImages[3]? viewProduct?.productImages[3] : 'https://dummyjson.com/image/150' }
-          thumbnail4={viewProduct.productImages[4]? viewProduct?.productImages[4] : 'https://dummyjson.com/image/150' }
+          thumbnail1={
+            viewProduct.productImages[1]
+              ? viewProduct?.productImages[1]
+              : "https://dummyjson.com/image/150"
+          }
+          thumbnail2={
+            viewProduct.productImages[2]
+              ? viewProduct?.productImages[2]
+              : "https://dummyjson.com/image/150"
+          }
+          thumbnail3={
+            viewProduct.productImages[3]
+              ? viewProduct?.productImages[3]
+              : "https://dummyjson.com/image/150"
+          }
+          thumbnail4={
+            viewProduct.productImages[4]
+              ? viewProduct?.productImages[4]
+              : "https://dummyjson.com/image/150"
+          }
+          title={viewProduct?.productTitle}
           category={viewProduct?.category}
-          title={viewProduct?.title}
           newPrice={viewProduct?.price}
           rating={viewProduct?.rating}
           description={viewProduct?.description}
           onClick={() => addItemToCart(viewProduct)}
-          discountPercentage={viewProduct.discountPercentage ? ((viewProduct?.price * viewProduct.discountPercentage) / 100).toFixed(2) : 0 }
+          discountPercentage={(
+            (viewProduct?.discount / viewProduct?.price) *
+            100
+          ).toFixed(2)}
         />
       )}
 
@@ -62,8 +81,7 @@ function SingleProduct() {
           ))}
         />
       )}
-      <Heading text={"Related Products"} />
-      {/* <OurProducts apiProducts={""} limit={4} /> */}
+      {/* <Heading text={"Related Products"} />      */}
     </div>
   );
 }

@@ -8,8 +8,9 @@ import { ProductsContext } from "../context/Products";
 import { UserContext } from "../context/UserContext";
 import Notification from "./Notification";
 import { useNavigate } from "react-router-dom";
+import ListViewProducts from "./ListViewProducts";
 
-function OurProducts() {
+function OurProducts({viewText, rendingArray}) {
   const [isLoading, setIsLoading] = useState(true);
   const [showNotification, setShowNotification] = useState(false);
   const [loadNotification, setLoadNotification] = useState(true);
@@ -54,32 +55,6 @@ function OurProducts() {
   };
 
 
-  // const handleAddToCart = async (data, userUid) => {
-  //   try {
-  //     await addItemToCart(data, userUid); // Wait for the item to be added to the cart
-  //     setNotificationText("Added to Cart"); // Set the notification message
-  //     setShowNotification(true); // Show the notification
-  //     setTimeout(() => {
-  //       setShowNotification(false); // Hide the notification after 3 seconds
-  //     }, 2000);
-  //   } catch (error) {
-  //     console.error("Error adding item to cart:", error);
-  //     setNotificationText("Failed to Add to Cart"); // Set error message
-  //     setShowNotification(true); // Show error notification
-  //     setTimeout(() => {
-  //       setShowNotification(false); // Hide the notification after 3 seconds
-  //     }, 2000);
-  //   }
-  // };
-  
-
-
-
-
-
-
-
-
 
   return (
     <div className="bg-white py-12">
@@ -88,26 +63,44 @@ function OurProducts() {
           {isLoading ? (
             <Loader />
           ) : (
-            products.map((data) => (
-              <Card
-                key={data.id}
-                src={data.productImages[0]}
-                title={data.productTitle}
-                category={data.category}
-                newPrice={data.price}
-                discountPercentage={data.discount}
-                oldPrice={data.oldPrice}
-                // addToCart={() => handleAddToCart(data)}
-                addToCart={() => user.isLogin ? handleAddToCart({ ...data, uid: user.uid }) : navigate("/auth/login")}
+            rendingArray.map((data) => ( 
+              viewText === "Card" ? < Card              
+              key={data.id}
+              src={data?.productImages[0]}
+              title={data.productTitle}
+              category={data.category}
+              newPrice={data.price}
+              discountPercentage={data.discount}
+              oldPrice={data.oldPrice}
+            
+              addToCart={() => user.isLogin ? handleAddToCart({ ...data, uid: user.uid }) : navigate("/auth/login")}
 
-                toViewProduct={`/shop/${data.id}`}
-                find={
-                  addtoCart.some((item) => item.id === data.id)
-                    ? "Already In Cart"
-                    : "Add to Cart"
-                }
-                disabled={addtoCart.some((item) => item.id === data.id)}
-              />
+              toViewProduct={`/shop/${data.id}`}
+              find={
+                addtoCart.some((item) => item.id === data.id)
+                  ? "Already In Cart"
+                  : "Add to Cart"
+              }
+              disabled={addtoCart.some((item) => item.id === data.id)}
+            /> : < ListViewProducts              
+            key={data.id}
+            src={data.productImages[0]}
+            title={data.productTitle}
+            category={data.category}
+            newPrice={data.price}
+            discountPercentage={data.discount}
+            oldPrice={data.oldPrice}
+          
+            addToCart={() => user.isLogin ? handleAddToCart({ ...data, uid: user.uid }) : navigate("/auth/login")}
+
+            toViewProduct={`/shop/${data.id}`}
+            find={
+              addtoCart.some((item) => item.id === data.id)
+                ? "Already In Cart"
+                : "Add to Cart"
+            }
+            disabled={addtoCart.some((item) => item.id === data.id)}
+          />
             ))
           )}
         </div>

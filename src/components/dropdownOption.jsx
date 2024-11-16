@@ -4,10 +4,14 @@ import { Dropdown } from "flowbite-react";
 import { HiLogout } from "react-icons/hi";
 
 export function DropdownOption({ label, displayName, email, onClick }) {
+
+
+
+
+  
   return (
     <Dropdown label={label} inline>
-      <Dropdown.Header>
-      
+      <Dropdown.Header>      
         <span className="block truncate text-sm font-medium">{email}</span>
       </Dropdown.Header>
       <Dropdown.Item>

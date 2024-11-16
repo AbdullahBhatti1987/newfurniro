@@ -16,20 +16,15 @@ export function CartSidebar({ totalCart }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
   }, [location]);
 
   const handleClose = () => setIsOpen(false);
-  
+
   const { user } = useContext(UserContext);
 
   const {
     addtoCart,
-    setAddtoCart,
-    addItemToCart,
-    lessQuanityFromCart,
     removeItemFromCart,
-    isItemAdded,
   } = useContext(AddtoCartContext);
 
   return (
@@ -50,28 +45,26 @@ export function CartSidebar({ totalCart }) {
         className="flex flex-col gap-1 h-fit max-h-[100vh] p-2 shadow-lg overflow-y-auto scrollbar-y-hide"
         open={isOpen}
         onClose={handleClose}
-        onMouseLeave={() => 
+        onMouseLeave={() =>
           setTimeout(() => {
-            setIsOpen(false); 
+            setIsOpen(false);
           }, 1000)
         }
         position="right"
-
       >
         <Drawer.Header title="Shopping Cart" />
         <div className="overflow-y-scroll scrollbar-hide min-h-[60vh] ">
-        {addtoCart.map((data) => (
-  <DrawerItem              
-    key={data.id}
-    title={data.productTitle}
-    count={data?.quantity}
-    amount={data.price}
-    image={data.productImages[0]}
-    deleteCart={() => removeItemFromCart(data.id)}
-    onClick={() => navigate(`shop/${data.id}`)} 
-  />
-))}
-
+          {addtoCart.map((data) => (
+            <DrawerItem
+              key={data.id}
+              title={data.productTitle}
+              count={data?.quantity}
+              amount={data.price}
+              image={data.productImages[0]}
+              deleteCart={() => removeItemFromCart(data.id)}
+              onClick={() => navigate(`shop/${data.id}`)}
+            />
+          ))}
         </div>
 
         <div className="flex flex-row py-2 border-b-2">

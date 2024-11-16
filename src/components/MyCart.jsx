@@ -22,7 +22,8 @@ export default function MyCart() {
     lessQuanityFromCart,
     removeItemFromCart,
   } = useContext(AddtoCartContext);
-  const { isCheckOut, setIsCheckOut, checkOut, setCheckOut } = useContext(CheckOutContext);
+  const { isCheckOut, setIsCheckOut, checkOut, setCheckOut } =
+    useContext(CheckOutContext);
 
   const navigate = useNavigate();
 
@@ -34,16 +35,15 @@ export default function MyCart() {
     setIsCheckOut(true); // yahan sahi function use ho raha hai
     setIsLoaded(true);
     if (checked) {
-        const itemToAdd = addtoCart.find((cartItem) => cartItem.id === data.id);
-        if (itemToAdd) {
-            setCheckOut((prev) => [...prev, { ...itemToAdd }]);
-            setDeliveryCharges(checkOut.length > 0 ? 250 : 0); // correct condition
-        }
+      const itemToAdd = addtoCart.find((cartItem) => cartItem.id === data.id);
+      if (itemToAdd) {
+        setCheckOut((prev) => [...prev, { ...itemToAdd }]);
+        setDeliveryCharges(checkOut.length > 0 ? 250 : 0); // correct condition
+      }
     } else {
-        setCheckOut((prev) => prev.filter((cart) => cart.id !== data.id));
+      setCheckOut((prev) => prev.filter((cart) => cart.id !== data.id));
     }
-};
-
+  };
 
   const calculateSubtotal = () => {
     return checkOut.reduce((total, item) => {
@@ -82,7 +82,9 @@ export default function MyCart() {
     });
     setAddtoCart(updatedCart);
     {
-      user.isLogin ? navigate("/checkout") : navigate("/auth/login");
+      user.isLogin
+        ? (window.href = "/checkout")
+        : (window.href = "/auth/login");
     }
   };
 

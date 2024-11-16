@@ -29,7 +29,7 @@ const BillingDetail = () => {
   };
 
   const calculateTotal = (subtotal, discount) => {
-    return subtotal - discount + deliveryCharges;
+    return (subtotal - discount) + deliveryCharges;
   };
 
   useEffect(() => {
@@ -89,7 +89,7 @@ const BillingDetail = () => {
                 <input
                   type="text"
                   placeholder="First Name"
-                  value={userData?.firstName}
+                  defaultValue={userData?.firstName}
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                 />
               </div>
@@ -98,7 +98,7 @@ const BillingDetail = () => {
                 <input
                   type="text"
                   placeholder="Last Name"
-                  value={userData?.lastName}
+                  defaultValue={userData?.lastName}
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                 />
               </div>
@@ -110,7 +110,7 @@ const BillingDetail = () => {
               <input
                 type="text"
                 placeholder="Company Name"
-                value={userData?.companyName}
+                defaultValue={userData?.companyName}
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
               />
             </div>
@@ -129,7 +129,7 @@ const BillingDetail = () => {
               <input
                 type="text"
                 placeholder="Street Address"
-                value={userData?.address}
+                defaultValue={userData?.address}
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
               />
             </div>
@@ -139,13 +139,13 @@ const BillingDetail = () => {
                 <input
                   type="text"
                   placeholder="Town / City"
-                  value={userData?.city}
+                  defaultValue={userData?.city}
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                 />
               </div>
               <div className="w-1/2">
                 <label className="block text-sm font-medium">Province</label>
-                <select defaultValue={userData?.province} className="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                <select value={userData?.province} className="mt-1 block w-full p-2 border border-gray-300 rounded-md">
                   <option>Sindh</option>
                   <option>Punjab</option>
                   <option>Balochistan</option>
@@ -159,7 +159,7 @@ const BillingDetail = () => {
                 <input
                   type="text"
                   placeholder="ZIP Code"
-                  value={userData?.zipcode}
+                  defaultValue={userData?.zipcode}
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                 />
               </div>
@@ -168,7 +168,7 @@ const BillingDetail = () => {
                 <input
                   type="text"
                   placeholder="Phone"
-                  value={userData.phoneNumber}
+                  defaultValue={userData.phoneNumber}
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                 />
               </div>
@@ -178,7 +178,7 @@ const BillingDetail = () => {
               <input
                 type="email"
                 placeholder="Email Address"
-                value={userData?.email}
+                defaultValue={userData?.email}
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
               />
             </div>
@@ -255,7 +255,7 @@ const BillingDetail = () => {
               <input
                 type="radio"
                 name="paymentMethod"
-                value="bank"
+                defaultValue="bank"
                 checked={paymentMethod === "bank"}
                 onChange={handlePaymentChange}
                 className="h-4 w-4 text-black border-gray-300"
@@ -271,7 +271,7 @@ const BillingDetail = () => {
               <input
                 type="radio"
                 name="paymentMethod"
-                value="cash"
+                defaultValue="cash"
                 checked={paymentMethod === "cash"}
                 onChange={handlePaymentChange}
                 className="h-4 w-4 text-black border-gray-300"
