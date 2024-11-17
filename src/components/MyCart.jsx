@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import CartProduct from "./CartProduct";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+
 import { AddtoCartContext } from "../context/AddToCart";
 import { UserContext } from "../context/UserContext";
 import Loader from "./Loader";
@@ -11,7 +11,7 @@ export default function MyCart() {
   const [discount, setDiscount] = useState(0);
   const [deliveryCharges, setDeliveryCharges] = useState(0);
   const [confirmTotal, setConfirmTotal] = useState(0);
-  const location = useLocation();
+
   const { user } = useContext(UserContext);
   const {
     isLoaded,
@@ -25,11 +25,7 @@ export default function MyCart() {
   const { isCheckOut, setIsCheckOut, checkOut, setCheckOut } =
     useContext(CheckOutContext);
 
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
 
   const handleCheckboxChange = (data, checked) => {
     setIsCheckOut(true); // yahan sahi function use ho raha hai

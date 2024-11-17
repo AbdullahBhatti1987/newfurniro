@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { TbGridDots } from "react-icons/tb";
 import { BsViewList } from "react-icons/bs";
@@ -9,6 +9,7 @@ function FilterOptions({
   HandleCategory,
   form,
   onSubmit,
+  sortBy,
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -60,11 +61,12 @@ function FilterOptions({
               name="sortby"
               id="sortby"
               className="rounded-lg text-gray-500"
+              onChange={sortBy}
             >
-              <option value="1">Sort by name A-Z</option>
-              <option value="2">Sort by name Z-A</option>
-              <option value="4">Low to High</option>
-              <option value="5">High to Low</option>
+              <option value={"byNameAtoZ"}>Sort by name A-Z</option>
+              <option value={"byNameZtoA"}>Sort by name Z-A</option>
+              <option value={"byPriceLow"}>Low to High</option>
+              <option value={"byPriceHigh"}>High to Low</option>
             </select>
           </div>
         </div>
@@ -91,11 +93,7 @@ function FilterOptions({
           </select>
         </div>
         <div className="right lg:w-1/2 md:w-1/2 w-2/2">
-          <form
-            className="w-full flex gap-4"
-            onSubmit={onSubmit}
-            ref={form}
-          >
+          <form className="w-full flex gap-4" onSubmit={onSubmit} ref={form}>
             <input
               type="search"
               name="search"

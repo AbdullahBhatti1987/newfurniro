@@ -54,7 +54,7 @@ export function CartSidebar({ totalCart }) {
       >
         <Drawer.Header title="Shopping Cart" />
         <div className="overflow-y-scroll scrollbar-hide min-h-[60vh] ">
-          {addtoCart.map((data) => (
+          {user.isLogin && addtoCart.map((data) => (
             <DrawerItem
               key={data.id}
               title={data.productTitle}

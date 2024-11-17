@@ -7,23 +7,14 @@ import Banner from "../components/Banner";
 import PageTop from "../components/PageTop";
 import NextPaggination from "../components/Pagination";
 import { ProductsContext } from "../context/Products";
-import { AddtoCartContext } from "../context/AddToCart";
-import React, { useRef } from 'react';
+
+import React, { useRef } from "react";
 
 function Shop() {
-  const [searchInput, setSearchInput] = useState("");
   const [choosenCategory, setChoosenCategory] = useState("All");
 
-  const {
-    addtoCart,
-    setAddtoCart,
-    addItemToCart,
-    lessQuanityFromCart,
-    removeItemFromCart,
-    isItemAdded,
-  } = useContext(AddtoCartContext);
   const { products } = useContext(ProductsContext);
-  const { id } = useParams(); // id will now be populated if route is /shop/:id
+  const { id } = useParams();
 
   const [viewstyle, setViewStyle] = useState("Card");
   const HandleStyleView = () => {
@@ -46,13 +37,12 @@ function Shop() {
     }
   };
 
-
   const SearchProduct = (e) => {
     e.preventDefault();
-    
+
     const searchTerm = e.target[0].value.toLowerCase();
     console.log("Search Input:", searchTerm);
-  
+
     if (searchTerm.trim()) {
       const findProduct = products.filter((data) =>
         data.productTitle.toLowerCase().includes(searchTerm)
@@ -60,14 +50,40 @@ function Shop() {
       setChoosenCategory(findProduct);
       console.log("Filtered Products:", findProduct);
     } else {
-      setChoosenCategory(products); 
+      setChoosenCategory(products);
     }
+
+    form.current.reset();
+  };
+
+  const form = useRef(null);
+
+
+  const HandleSort = (e) => {
+    const getValue = e.target.value;
   
-    form.current.reset(); 
+    if (getValue === "byNameAtoZ") {
+      const sortAtoZ = products.sort((a, b) => a.productTitle.localeCompare(b.productTitle));
+      setChoosenCategory([...sortAtoZ]);
+    } else if (getValue === "byNameZtoA") {
+      const sortZtoA = products.sort((a, b) => b.productTitle.localeCompare(a.productTitle));
+      setChoosenCategory([...sortZtoA]);
+    } else if (getValue === "byPriceLow") {
+      const sortLowToHigh = products.sort((a, b) => a.price - b.price);
+      setChoosenCategory([...sortLowToHigh]);
+    } else if (getValue === "byPriceHigh") {
+      const sortHighToLow = products.sort((a, b) => b.price - a.price);
+      setChoosenCategory([...sortHighToLow]);
+    }
   };
   
-  const form = useRef(null); 
   
+
+
+
+
+
+
 
   return (
     <div className="">
@@ -76,15 +92,16 @@ function Shop() {
         viewClick={HandleStyleView}
         categoryArray={products}
         HandleCategory={HandleCategory}
-       form={form}
+        form={form}
         onSubmit={SearchProduct}
+        sortBy={HandleSort}
       />
       <OurProducts
         toViewProduct={id}
         viewText={viewstyle}
         rendingArray={choosenCategory === "All" ? products : choosenCategory}
       />
-      <NextPaggination />
+      <NextPaggination total={5} initialPage={3} />
       <Banner />
     </div>
   );

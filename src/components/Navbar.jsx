@@ -3,10 +3,10 @@ import { FaRegHeart } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
 // import { IoFingerPrintSharp } from "react-icons/io5";
 import { TbUserExclamation } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartSidebar } from "./CartSidebar";
 import { UserContext } from "../context/UserContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { DropdownOption } from "./dropdownOption";
 import { auth } from "../utils/userfirebase";
 import { signOut } from "firebase/auth";
@@ -19,32 +19,62 @@ export function Component() {
 
   const { user } = useContext(UserContext);
   const { addtoCart } = useContext(AddtoCartContext);
+  
+  const navigate = useNavigate();
+  const logoutTimer = useRef(null);
+
 
   useEffect(() => {
-    setTimeout(() => {
-      HandleSignOut();
-    }, 3600000);
+    const startTimer = () => {
+      logoutTimer.current = setTimeout(() => {
+        HandleSignOut();
+        navigate("/");
+        
+      }, 10000);
+    };
+
+    const resetTimeout = () => {
+      if (logoutTimer.current) {
+        clearTimeout(logoutTimer.current);
+      }
+      startTimer();
+    };
+
+    startTimer();
+
+    window.addEventListener("mousemove", resetTimeout);
+    window.addEventListener("keydown", resetTimeout);
+
+    return () => {
+      if (logoutTimer.current) {
+        clearTimeout(logoutTimer.current);
+      }
+      window.removeEventListener("mousemove", resetTimeout);
+      window.removeEventListener("keydown", resetTimeout);
+    };
   }, []);
 
   const HandleSignOut = async () => {
     await signOut(auth)
       .then(() => {
         console.log("Sign-out successful.");
-        window.href = "/";
+        navigate("/");
       })
       .catch((error) => {
         console.log("An error happened.", error);
         alert("An error happened.", error);
       });
   };
-  const value = searchItem; // Ensure value is defined here
+  const value = searchItem;
 
   useEffect(() => {
     console.log("isLoading=>", isLoading);
     console.log(user);
+    
     {
       searchItem && console.log("SearchItem=>", searchItem);
     }
+    console.log("Total Carts", addtoCart);
   }, [isLoading]);
 
   return (
@@ -95,18 +125,14 @@ export function Component() {
                     setSearchItem("");
                     setTimeout(() => {
                       setIsLoading(true);
-                    }, 3000);
+                    }, 360000);
                   }}
                 />
               )}
 
               <FaRegHeart className="text-xl lg:text-2xl" />
 
-              <CartSidebar
-                
-                totalCart={user.isLogin ? addtoCart.length : 0}
-              
-                />
+              <CartSidebar totalCart={user.isLogin ? addtoCart.length : 0} />
             </div>
 
             <Navbar.Toggle />
