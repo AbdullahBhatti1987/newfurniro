@@ -22,10 +22,7 @@ export function CartSidebar({ totalCart }) {
 
   const { user } = useContext(UserContext);
 
-  const {
-    addtoCart,
-    removeItemFromCart,
-  } = useContext(AddtoCartContext);
+  const { addtoCart, removeItemFromCart } = useContext(AddtoCartContext);
 
   return (
     <>
@@ -54,17 +51,20 @@ export function CartSidebar({ totalCart }) {
       >
         <Drawer.Header title="Shopping Cart" />
         <div className="overflow-y-scroll scrollbar-hide min-h-[60vh] ">
-          {user.isLogin && addtoCart.map((data) => (
-            <DrawerItem
-              key={data.id}
-              title={data.productTitle}
-              count={data?.quantity}
-              amount={data.price}
-              image={data.productImages[0]}
-              deleteCart={() => removeItemFromCart(data.id)}
-              onClick={() => navigate(`shop/${data.id}`)}
-            />
-          ))}
+          {user.isLogin &&
+            addtoCart
+              .filter((data) => user.uid === data.uid)
+              .map((data) => (
+                <DrawerItem
+                  key={data.id}
+                  title={data.productTitle}
+                  count={data?.quantity}
+                  amount={data.price}
+                  image={data.productImages[0]}
+                  deleteCart={() => removeItemFromCart(data.id)}
+                  onClick={() => navigate(`shop/${data.id}`)}
+                />
+              ))}
         </div>
 
         <div className="flex flex-row py-2 border-b-2">

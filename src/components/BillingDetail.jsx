@@ -200,7 +200,10 @@ const BillingDetail = () => {
             <h2 className="text-xl font-bold mb-6">Subtotal</h2>
           </div>
           <div className="flex flex-col justify-start mb-4 gap-1 w-full">
-            {checkOut.map((data) => (
+            {checkOut
+             .filter((data) => user.uid === data.uid)
+            .map((data) => (
+              
               <div
                 key={data.id}
                 className="bg-white w-full flex flex-row justify-between items-center gap-4 p-2 border rounded-2xl shadow-inner hover:shadow-md hover:border-gray-600"

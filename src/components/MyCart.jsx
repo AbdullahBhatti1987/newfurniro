@@ -5,6 +5,7 @@ import { AddtoCartContext } from "../context/AddToCart";
 import { UserContext } from "../context/UserContext";
 import Loader from "./Loader";
 import { CheckOutContext } from "../context/CheckOutContext";
+import { useNavigate } from "react-router-dom";
 
 export default function MyCart() {
   const [subtotal, setSubTotal] = useState(0);
@@ -22,10 +23,14 @@ export default function MyCart() {
     lessQuanityFromCart,
     removeItemFromCart,
   } = useContext(AddtoCartContext);
-  const { isCheckOut, setIsCheckOut, checkOut, setCheckOut } =
-    useContext(CheckOutContext);
 
+  const { isCheckOut, 
+        setIsCheckOut, 
+        checkOut, 
+        setCheckOut } =
+        useContext(CheckOutContext);
 
+  const navigate = useNavigate();
 
   const handleCheckboxChange = (data, checked) => {
     setIsCheckOut(true); // yahan sahi function use ho raha hai
@@ -78,9 +83,7 @@ export default function MyCart() {
     });
     setAddtoCart(updatedCart);
     {
-      user.isLogin
-        ? (window.href = "/checkout")
-        : (window.href = "/auth/login");
+      user.isLogin ? navigate("/checkout") : navigate("/auth/login");
     }
   };
 
@@ -108,27 +111,31 @@ export default function MyCart() {
           </div>
           <div className="w-full flex flex-col gap-2 py-2">
             {addtoCart.length > 0 ? (
-              addtoCart.map((data) => (
-                <CartProduct
-                  key={data.id}
-                  src={data.productImages[0]}
-                  title={data.productTitle}
-                  price={data.price}
-                  deleteItemFromCart={() => removeItemFromCart(data.id)}
-                  lessQuantityCart={() =>
-                    data.quantity > 1
-                      ? lessQuanityFromCart(data.id)
-                      : alert(
-                          "Please click the delete button to remove this product."
-                        )
-                  }
-                  addQuantityIntoCart={() => addItemToCart(data)}
-                  totalPrice={(data.price * data.quantity).toFixed(2)}
-                  quantity={data.quantity}
-                  checkBox={(e) => handleCheckboxChange(data, e.target.checked)}
-                  isChecked={checkOut.some((item) => item.id === data.id)}
-                />
-              ))
+              addtoCart
+                .filter((data) => user.uid === data.uid)
+                .map((data) => (
+                  <CartProduct
+                    key={data.id}
+                    src={data.productImages[0]}
+                    title={data.productTitle}
+                    price={data.price}
+                    deleteItemFromCart={() => removeItemFromCart(data.id)}
+                    lessQuantityCart={() =>
+                      data.quantity > 1
+                        ? lessQuanityFromCart(data.id)
+                        : alert(
+                            "Please click the delete button to remove this product."
+                          )
+                    }
+                    addQuantityIntoCart={() => addItemToCart(data)}
+                    totalPrice={(data.price * data.quantity).toFixed(2)}
+                    quantity={data.quantity}
+                    checkBox={(e) =>
+                      handleCheckboxChange(data, e.target.checked)
+                    }
+                    isChecked={checkOut.some((item) => item.id === data.id)}
+                  />
+                ))
             ) : (
               <Loader />
             )}

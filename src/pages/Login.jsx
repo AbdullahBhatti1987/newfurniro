@@ -63,9 +63,8 @@ function Login() {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-        console.log("Google Account=>", user)
+        // console.log("Google Account=>", user)
         navigate("/");
-        window.href= "/";
       })
       .catch((error) => {
         const errorCode = error.code;

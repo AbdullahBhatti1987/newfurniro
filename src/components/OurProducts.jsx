@@ -42,9 +42,11 @@ function OurProducts({ viewText, rendingArray }) {
     fetchData();
   }, []);
 
-  const handleAddToCart = (data) => {
-    console.log("user", userInfo);
-    addItemToCart(data);
+  const handleAddToCart = async (data) => {
+    // console.log("user", userInfo);
+    //  uid: user.uid 
+    await addItemToCart(data);
+    console.log("user uid", data);
     setNotificationText("Add to Cart");
     setShowNotification(true);
     setTimeout(() => {
@@ -58,11 +60,15 @@ function OurProducts({ viewText, rendingArray }) {
         {isLoading ? (
           <Loader />
         ) : (
-          <div className={`mx-auto gap-4 flex-wrap ${viewText === "Card" ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" : ""}`}>
-
+          <div
+            className={`mx-auto gap-4 flex-wrap ${
+              viewText === "Card"
+                ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+                : ""
+            }`}
+          >
             {rendingArray.map((data) => {
               const commonProps = {
-                key: data.id,
                 src: data.productImages[0],
                 title: data.productTitle,
                 category: data.category,
@@ -71,19 +77,20 @@ function OurProducts({ viewText, rendingArray }) {
                 oldPrice: data.oldPrice,
                 addToCart: () =>
                   user.isLogin
-                    ? handleAddToCart({ ...data, uid: user.uid })
+                    ? handleAddToCart({...data, uid: user.uid })
                     : navigate("/auth/login"),
                 toViewProduct: `/shop/${data.id}`,
-                find: addtoCart.some((item) => item.id === data.id)
+              
+                find: addtoCart.some((item) => item.id === data.id) && user.isLogin
                   ? "Already In Cart"
                   : "Add to Cart",
                 disabled: addtoCart.some((item) => item.id === data.id),
               };
 
               return viewText === "Card" ? (
-                <Card {...commonProps} />
+                <Card key={data.id} {...commonProps} />
               ) : (
-                <ListViewProducts {...commonProps} />
+                <ListViewProducts key={data.id} {...commonProps} />
               );
             })}
           </div>

@@ -68,13 +68,13 @@ export function Component() {
   const value = searchItem;
 
   useEffect(() => {
-    console.log("isLoading=>", isLoading);
-    console.log(user);
+    // console.log("isLoading=>", isLoading);
+    // console.log(user);
     
     {
       searchItem && console.log("SearchItem=>", searchItem);
     }
-    console.log("Total Carts", addtoCart);
+    // console.log("Total Carts", addtoCart);
   }, [isLoading]);
 
   return (
@@ -133,7 +133,9 @@ export function Component() {
 
               <FaRegHeart className="text-xl lg:text-2xl" />
 
-              <CartSidebar totalCart={user.isLogin ? addtoCart.length : 0} />
+              <CartSidebar totalCart={user.isLogin ? addtoCart
+              .filter((data) => user.uid === data.uid).length
+                : 0} />
             </div>
 
             <Navbar.Toggle />

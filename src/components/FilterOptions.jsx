@@ -39,7 +39,7 @@ function FilterOptions({
           </div>
         </div>
         <div className="right lg:w-1/2 md:w-1/2 w-2/2 flex flex-row lg:justify-end md:justify-end justify-between items-center lg:gap-6 md:gap-4 gap-2">
-          <div className="flex flex-row justify-between items-center lg:gap-6 md:gap-4 gap-2">
+          <div className="lg:w-1/2 flex flex-row justify-between items-center lg:gap-6 md:gap-4 gap-2">
             <p>Show</p>
             <select
               name="number"
@@ -55,7 +55,7 @@ function FilterOptions({
             </select>
           </div>
           <div>
-            <span className="text-xl text-gray-400">|</span>
+            <span className="text-xl text-gray-400 lg:flex md:flex sm:flex hidden">|</span>
           </div>
           <div className="flex flex-row justify-between items-center lg:gap-6 md:gap-4 gap-2">
             <p>Sort by</p>
