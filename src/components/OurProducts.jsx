@@ -55,59 +55,39 @@ function OurProducts({ viewText, rendingArray }) {
   return (
     <div className="bg-white py-12">
       <div className="w-10/12 mx-auto">
-        <div className="flex mx-auto justify-center gap-4 flex-wrap">
-          {isLoading ? (
-            <Loader />
-          ) : (
-            rendingArray.map((data) =>
-              viewText === "Card" ? (
-                <Card
-                  key={data.id}
-                  src={data?.productImages[0]}
-                  title={data.productTitle}
-                  category={data.category}
-                  newPrice={data.price}
-                  discountPercentage={data.discount}
-                  oldPrice={data.oldPrice}
-                  addToCart={() =>
-                    user.isLogin
-                      ? handleAddToCart({ ...data, uid: user.uid })
-                      : navigate("/auth/login")
-                  }
-                  toViewProduct={`/shop/${data.id}`}
-                  find={
-                    addtoCart.some((item) => item.id === data.id)
-                      ? "Already In Cart"
-                      : "Add to Cart"
-                  }
-                  disabled={addtoCart.some((item) => item.id === data.id)}
-                />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <div className={`mx-auto gap-4 flex-wrap ${viewText === "Card" ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" : ""}`}>
+
+            {rendingArray.map((data) => {
+              const commonProps = {
+                key: data.id,
+                src: data.productImages[0],
+                title: data.productTitle,
+                category: data.category,
+                newPrice: data.price,
+                discountPercentage: data.discount,
+                oldPrice: data.oldPrice,
+                addToCart: () =>
+                  user.isLogin
+                    ? handleAddToCart({ ...data, uid: user.uid })
+                    : navigate("/auth/login"),
+                toViewProduct: `/shop/${data.id}`,
+                find: addtoCart.some((item) => item.id === data.id)
+                  ? "Already In Cart"
+                  : "Add to Cart",
+                disabled: addtoCart.some((item) => item.id === data.id),
+              };
+
+              return viewText === "Card" ? (
+                <Card {...commonProps} />
               ) : (
-                <ListViewProducts
-                  key={data.id}
-                  src={data.productImages[0]}
-                  title={data.productTitle}
-                  category={data.category}
-                  newPrice={data.price}
-                  discountPercentage={data.discount}
-                  oldPrice={data.oldPrice}
-                  addToCart={() =>
-                    user.isLogin
-                      ? handleAddToCart({ ...data, uid: user.uid })
-                      : navigate("/auth/login")
-                  }
-                  toViewProduct={`/shop/${data.id}`}
-                  find={
-                    addtoCart.some((item) => item.id === data.id)
-                      ? "Already In Cart"
-                      : "Add to Cart"
-                  }
-                  disabled={addtoCart.some((item) => item.id === data.id)}
-                />
-              )
-            )
-          )}
-        </div>
+                <ListViewProducts {...commonProps} />
+              );
+            })}
+          </div>
+        )}
       </div>
       {showNotification && <Notification text={notificationText} />}
     </div>

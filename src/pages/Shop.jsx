@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import FilterOptions from "../components/FilterOptions";
@@ -12,6 +12,7 @@ import React, { useRef } from "react";
 
 function Shop() {
   const [choosenCategory, setChoosenCategory] = useState("All");
+
 
   const { products } = useContext(ProductsContext);
   const { id } = useParams();
@@ -31,8 +32,8 @@ function Shop() {
       const filteredCategory = products.filter(
         (data) => data.category === selectedCategory
       );
-      console.log("Selected Category:", selectedCategory);
-      console.log("Filtered Products:", filteredCategory);
+      // console.log("Selected Category:", selectedCategory);
+      // console.log("Filtered Products:", filteredCategory);
       setChoosenCategory(filteredCategory);
     }
   };
@@ -58,15 +59,18 @@ function Shop() {
 
   const form = useRef(null);
 
-
   const HandleSort = (e) => {
     const getValue = e.target.value;
-  
+
     if (getValue === "byNameAtoZ") {
-      const sortAtoZ = products.sort((a, b) => a.productTitle.localeCompare(b.productTitle));
+      const sortAtoZ = products.sort((a, b) =>
+        a.productTitle.localeCompare(b.productTitle)
+      );
       setChoosenCategory([...sortAtoZ]);
     } else if (getValue === "byNameZtoA") {
-      const sortZtoA = products.sort((a, b) => b.productTitle.localeCompare(a.productTitle));
+      const sortZtoA = products.sort((a, b) =>
+        b.productTitle.localeCompare(a.productTitle)
+      );
       setChoosenCategory([...sortZtoA]);
     } else if (getValue === "byPriceLow") {
       const sortLowToHigh = products.sort((a, b) => a.price - b.price);
@@ -76,13 +80,38 @@ function Shop() {
       setChoosenCategory([...sortHighToLow]);
     }
   };
+
+  const [totalPage, setTotalPage] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemPerPage] = useState(5);
+
+  const HandlePerPage = (e) => {
+    const perpage = e.target.value;
+    setItemPerPage(Number(perpage)); 
+    setTotalPage(Math.ceil(products.length / perpage));
+    setCurrentPage(1); 
   
+    const arr = products.slice(0, perpage);
+    setChoosenCategory([...arr]);
+  };
   
-
-
-
-
-
+  const HandleCurrentPage = (page) => {
+    setCurrentPage(page);
+    const paginatedProducts = products.slice(
+      (page - 1) * itemsPerPage,
+      page * itemsPerPage
+    );
+    setChoosenCategory(paginatedProducts);
+  };
+  
+  useEffect(() => {
+    HandleCurrentPage(currentPage); 
+  }, [currentPage, itemsPerPage, products]);
+  
+  useEffect(() => {
+    setTotalPage(Math.ceil(products.length / itemsPerPage)); 
+  }, [itemsPerPage, products.length]);
+  
 
 
   return (
@@ -95,13 +124,14 @@ function Shop() {
         form={form}
         onSubmit={SearchProduct}
         sortBy={HandleSort}
+        perPage={HandlePerPage}
       />
       <OurProducts
         toViewProduct={id}
         viewText={viewstyle}
         rendingArray={choosenCategory === "All" ? products : choosenCategory}
       />
-      <NextPaggination total={5} initialPage={3} />
+      <NextPaggination total={totalPage} initialPage={currentPage} selectPage={HandleCurrentPage}  />
       <Banner />
     </div>
   );

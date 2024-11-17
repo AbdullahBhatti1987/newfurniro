@@ -26,8 +26,8 @@ function Card({
 
   return (
     <div 
-      className="w-[95%] sm:w-[47%] md:w-[30%] lg:w-[23%] relative overflow-hidden group shadow-md border p-4"
-      // className="relative overflow-hidden group shadow-md border p-4"
+
+      className="relative overflow-hidden group shadow-md border p-4"
 
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

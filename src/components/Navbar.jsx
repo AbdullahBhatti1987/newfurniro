@@ -30,7 +30,7 @@ export function Component() {
         HandleSignOut();
         navigate("/");
         
-      }, 10000);
+      }, 600000);
     };
 
     const resetTimeout = () => {

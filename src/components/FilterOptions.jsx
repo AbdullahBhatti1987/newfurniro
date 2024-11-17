@@ -10,6 +10,7 @@ function FilterOptions({
   form,
   onSubmit,
   sortBy,
+  perPage
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -44,12 +45,13 @@ function FilterOptions({
               name="number"
               id="number"
               className="rounded-lg text-center px-2 text-gray-500"
+              onChange={perPage}
             >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
+              <option value="1">1 per page</option>
+              <option value="2">2 per page</option>
+              <option value="3">3 per page</option>
+              <option value="4">4 per page</option>
+              <option value="5">5 per page</option>
             </select>
           </div>
           <div>
