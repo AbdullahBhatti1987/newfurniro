@@ -44,9 +44,8 @@ function OurProducts({ viewText, rendingArray }) {
 
   const handleAddToCart = async (data) => {
     // console.log("user", userInfo);
-    //  uid: user.uid 
     await addItemToCart(data);
-    console.log("user uid", data);
+    // console.log("user uid", data.uid);
     setNotificationText("Add to Cart");
     setShowNotification(true);
     setTimeout(() => {

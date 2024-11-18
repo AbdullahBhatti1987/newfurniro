@@ -44,9 +44,9 @@ function Login() {
         : await signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
               const user = userCredential.user;
-              console.log("User successfully Sign In");
+              console.log("User successfully Sign In");          
               // {checkOut ? navigate("/checkout") : navigate("/")}
-              {checkOut ? navigate("/checkout") : navigate("/")}
+              navigate("/")
             })
             .catch((error) => {
               const errorCode = error.code;
@@ -56,9 +56,9 @@ function Login() {
     }
   };
 
-  const HandleWithGoogle = () => {
+  const HandleWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
+    await signInWithPopup(auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
@@ -67,13 +67,13 @@ function Login() {
         navigate("/");
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
-        const email = error.customData.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
         alert(errorMessage)
       });
   };
+
+
 
   return (
     <div className="">

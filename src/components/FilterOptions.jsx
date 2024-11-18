@@ -21,16 +21,16 @@ function FilterOptions({
 
   return (
     <div className="filter py-6 lightColor">
-      <div className="lg:w-10/12 md:w-11/12 w-2/2 mx-auto flex lg:flex-row md:flex-row flex-col lg:gap-24 md:gap-12 gap-6 justify-between items-center">
-        <div className="left lg:w-1/2 md:w-1/2 w-2/2 flex flex-row lg:justify-start md:justify-start justify-between items-center lg:gap-6 md:gap-4 gap-2">
+      <div className="lg:w-10/12 w-11/12 mx-auto flex lg:flex-row md:flex-col flex-col lg:gap-12 md:gap-6 gap-2 justify-between items-center">
+        <div className="left lg:w-1/2  w-full flex flex-row justify-between items-center lg:gap-6 md:gap-4 gap-2">
           <div className="flex flex-row lg:gap-6 md:gap-4 gap-2 text-xl font-semibold justify-between items-center">
             <GiSettingsKnobs className="rotate-90" />
-            <button onClick={HandleFilter}>Filter</button>
+            <button onClick={HandleFilter} className="p-2">Filter</button>
             <TbGridDots onClick={viewClick} className="cursor-pointer" />
             <BsViewList />
           </div>
           <div>
-            <span className="text-xl text-gray-400">|</span>
+            <span className="text-3xl text-gray-400 ">|</span>
           </div>
           <div>
             <p>
@@ -38,13 +38,14 @@ function FilterOptions({
             </p>
           </div>
         </div>
-        <div className="right lg:w-1/2 md:w-1/2 w-2/2 flex flex-row lg:justify-end md:justify-end justify-between items-center lg:gap-6 md:gap-4 gap-2">
-          <div className="lg:w-1/2 flex flex-row justify-between items-center lg:gap-6 md:gap-4 gap-2">
-            <p>Show</p>
+        <div className="w-full lg:w-1/2 flex flex-col sm:flex-row md:flex-row lg:flex-row justify-between items-center  transition-all duration-500 ease-in-out lg:gap-6 md:gap-4 gap-2 ">
+
+        <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 flex flex-row justify-between items-center gap-2 ">
+        <p className="text-gray-700">Show</p>
             <select
               name="number"
               id="number"
-              className="rounded-lg text-center px-2 text-gray-500"
+              className=" rounded-lg px-2 text-gray-500 flex-grow"
               onChange={perPage}
             >
               <option value="1">1 per page</option>
@@ -54,15 +55,16 @@ function FilterOptions({
               <option value="5">5 per page</option>
             </select>
           </div>
-          <div>
-            <span className="text-xl text-gray-400 lg:flex md:flex sm:flex hidden">|</span>
+          
+          <div className="bg-red-400">
+            <span className="text-3xl text-gray-400 lg:flex hidden">|</span>
           </div>
-          <div className="flex flex-row justify-between items-center lg:gap-6 md:gap-4 gap-2">
-            <p>Sort by</p>
+          <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 flex flex-row justify-between items-center gap-2">
+          <p className="text-gray-700 text-nowrap">Sort by</p>
             <select
               name="sortby"
               id="sortby"
-              className="rounded-lg text-gray-500"
+              className="rounded-lg text-gray-500 flex-grow"
               onChange={sortBy}
             >
               <option value={"byNameAtoZ"}>Sort by name A-Z</option>
@@ -74,11 +76,11 @@ function FilterOptions({
         </div>
       </div>
       <div
-        className={`bottom w-10/12 mx-auto flex lg:flex-row md:flex-row flex-col  lg:gap-12 md:gap-6 gap-4 transition-all duration-500 ease-in-out ${
-          isVisible ? "max-h-[500px] opacity-100 pt-4" : "max-h-0 opacity-0"
+        className={`bottom w-11/12 lg:w-10/12  mx-auto flex items-center lg:flex-row md:flex-row flex-col lg:gap-12 md:gap-6 gap-4 transition-all duration-500 ease-in-out ${
+          isVisible ? "max-h-[500px] opacity-100 mt-4" : "max-h-0 opacity-0"
         } overflow-hidden`}
       >
-        <div className="left lg:w-1/2 md:w-1/2 w-2/2">
+        <div className="left lg:w-1/2 md:w-1/2 w-full">
           <select
             name="category"
             id="category1"
@@ -94,13 +96,13 @@ function FilterOptions({
               ))}
           </select>
         </div>
-        <div className="right lg:w-1/2 md:w-1/2 w-2/2">
+        <div className="right lg:w-1/2 md:w-1/2 w-full">
           <form className="w-full flex gap-4" onSubmit={onSubmit} ref={form}>
             <input
               type="search"
               name="search"
               placeholder="Search product by name"
-              className="w-3/4 rounded-xl"
+              className="w-3/4 rounded-xl text-lg"
               // onChange={onChange} // Update search input on change
             />
             <button
