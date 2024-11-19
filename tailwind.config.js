@@ -10,7 +10,11 @@ export default {
     flowbite.content(),
   ],
   theme: {
-    extend: {},
+    extend: {
+      borderRadius: {
+        'large-1-5': 'calc(theme("borderRadius.large") / 1.5)',
+      },
+    },
   },
   darkMode: "class",
   plugins: [nextui()],

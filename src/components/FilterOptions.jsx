@@ -22,7 +22,7 @@ function FilterOptions({
   return (
     <div className="filter py-6 lightColor">
       <div className="lg:w-10/12 w-11/12 mx-auto flex lg:flex-row md:flex-col flex-col lg:gap-12 md:gap-6 gap-2 justify-between items-center">
-        <div className="left lg:w-1/2  w-full flex flex-row justify-between items-center lg:gap-6 md:gap-4 gap-2">
+        <div className="left lg:w-1/2  w-full flex flex-row lg:justify-start items-center lg:gap-6 md:gap-4 gap-2">
           <div className="flex flex-row lg:gap-6 md:gap-4 gap-2 text-xl font-semibold justify-between items-center">
             <GiSettingsKnobs className="rotate-90" />
             <button onClick={HandleFilter} className="p-2">Filter</button>
@@ -30,7 +30,7 @@ function FilterOptions({
             <BsViewList />
           </div>
           <div>
-            <span className="text-3xl text-gray-400 ">|</span>
+            {/* <span className="text-3xl text-gray-400 ">|</span> */}
           </div>
           <div>
             <p>
@@ -38,7 +38,7 @@ function FilterOptions({
             </p>
           </div>
         </div>
-        <div className="w-full lg:w-1/2 flex flex-col sm:flex-row md:flex-row lg:flex-row justify-between items-center  transition-all duration-500 ease-in-out lg:gap-6 md:gap-4 gap-2 ">
+        <div className="w-full lg:w-1/2 flex flex-col sm:flex-row md:flex-row lg:flex-row justify-end items-center transition-all duration-500 ease-in-out lg:gap-6 md:gap-4 gap-2 ">
 
         <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 flex flex-row justify-between items-center gap-2 ">
         <p className="text-gray-700">Show</p>
@@ -56,8 +56,8 @@ function FilterOptions({
             </select>
           </div>
           
-          <div className="bg-red-400">
-            <span className="text-3xl text-gray-400 lg:flex hidden">|</span>
+          <div className="">
+            {/* <span className="text-3xl text-gray-400 lg:flex hidden">|</span> */}
           </div>
           <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 flex flex-row justify-between items-center gap-2">
           <p className="text-gray-700 text-nowrap">Sort by</p>

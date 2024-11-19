@@ -11,7 +11,7 @@ export default function DrawerItem({
   onClick,
 }) {
   return (
-    <Drawer.Items onClick={onClick} className={"shadow-md rounded-xl py-1"}>
+    <Drawer.Items className={"shadow-md rounded-xl py-1"}>
       <div className=" flex flex-row justify-between items-center ">
         <div className=" flex flex-row justify-between gap-2 items-center border rounded-xl p-1 w-full">
           <div className="w-2/6 h-20 lightColor rounded-lg overflow-hidden flex justify-center items-center relative">
@@ -19,6 +19,7 @@ export default function DrawerItem({
               src={image}
               alt=""
               className="absolute inset-0 w-full h-full object-cover"
+              onClick={onClick}
             />
           </div>
 

@@ -31,10 +31,10 @@ function Contact() {
           />
         </div>
         <div className="flex flex-row justify-between gap-12 py-12">
-          <div className="left w-5/12 flex flex-col gap-12">
-            <div className="box flex flex-row gap-4 justify-between items-start">
-              <div className="left w-1/3 flex justify-center items-center">
-                <MdLocationPin />
+          <div className="left w-5/12 flex flex-col gap-12 justify-evenly">
+            <div className="box flex flex-row gap-4 justify-between items-start ">
+              <div className="left w-1/3 flex justify-center items-center  h-full">
+                <MdLocationPin className="lg:text-4xl"/>
               </div>
               <div className="right w-2/3 flex flex-col gap-2 justify-start">
                 <h2 className="text-2xl font-bold">Address</h2>
@@ -42,8 +42,8 @@ function Contact() {
               </div>
             </div>
             <div className="box flex flex-row gap-4 justify-between items-start">
-              <div className="left w-1/3 flex justify-center items-center">
-                <FaPhone />
+              <div className="left w-1/3 flex justify-center items-center  h-full">
+                <FaPhone className="lg:text-4xl"/>
               </div>
               <div className="right w-2/3 flex flex-col gap-2 justify-start">
                 <h2 className="text-2xl font-bold">Phone</h2>
@@ -52,8 +52,8 @@ function Contact() {
               </div>
             </div>
             <div className="box flex flex-row gap-4 justify-between items-start">
-              <div className="left w-1/3 flex justify-center items-center">
-                <GoClockFill />
+              <div className="left w-1/3 flex justify-center items-center  h-full">
+                <GoClockFill className="lg:text-4xl"/>
               </div>
               <div className="right w-2/3 flex flex-col gap-2 justify-start">
                 <h2 className="text-2xl font-bold">Working Time</h2>
@@ -101,7 +101,7 @@ function Contact() {
                   className="mt-1 block w-full p-2 py-4 border border-gray-300 rounded-md"
                 ></textarea>
               </div>
-              <button className="darkBoard w-1/2 border-2 py-4 rounded-lg darkColor text-white font-bold">Submit</button>
+              <button className="darkBoard w-full border-2 py-4 rounded-lg darkColor text-white font-bold">Submit</button>
             </form>
           </div>
         </div>
