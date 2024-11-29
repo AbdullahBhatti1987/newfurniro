@@ -53,7 +53,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Auth Routes */}
+       
         <Route path="/auth" element={<Auth />}>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
@@ -106,10 +106,7 @@ function App() {
           <Route path="analytics/traffic" element={<AnalyticsTraffic />} />
           <Route path="analytics/performance" element={<AnalyticsPerformance />} />
         </Route>
-        {/* 
-
-           */}
-        {/* </Route> */}
+     
       </Routes>
     </BrowserRouter>
   );

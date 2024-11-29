@@ -81,7 +81,7 @@ export function Component() {
     <div className="w-full">
       <div className="lg:w-11/12 w-full mx-auto">
         <Navbar>
-          <NavbarBrand>
+          <NavbarBrand href="/admin">
             <img
               src="/images/logo.png"
 

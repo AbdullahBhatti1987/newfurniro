@@ -15,7 +15,7 @@ function FilterOptions({
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const HandleFilter = () => {
+  const HandleFilter =  () => {
     setIsVisible((prev) => !prev);
   };
 
