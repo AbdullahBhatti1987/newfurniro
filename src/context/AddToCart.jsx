@@ -1,4 +1,6 @@
+import { collection } from "firebase/firestore";
 import { createContext, useEffect, useState } from "react";
+import { db } from "../utils/userfirebase";
 
 export const AddtoCartContext = createContext();
 
@@ -9,6 +11,7 @@ function AddToCartContextProvider({ children }) {
   useEffect(() => {
     if (isLoaded) {
       localStorage.setItem("addtoCart", JSON.stringify(addtoCart));
+
     }
     console.log("cart =>", addtoCart);
   }, [addtoCart]);
@@ -30,7 +33,7 @@ function AddToCartContextProvider({ children }) {
       where("productTitle", "==", cartData.productTitle)
     );
     const querySnapshot = await getDocs(titleQuery);
-    console.log("Title not match with old Carts.");
+    // console.log("Title not match with old Carts.");
 
     if (!querySnapshot.empty) {
       // If there is a document with the same title, show an error message
@@ -52,6 +55,7 @@ function AddToCartContextProvider({ children }) {
   };
 
   function addItemToCart(item) {
+    handleaddCart();
     const arr = addtoCart;
     const itemIndex = addtoCart.findIndex((data) => data.id == item.id);
     if (itemIndex == -1) {

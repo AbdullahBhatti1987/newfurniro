@@ -3,6 +3,7 @@ import Button from "../adminComponents/Button";
 import { query, where, getDocs, addDoc, collection } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../utils/userfirebase";
+import { categories } from "../../utils/myArrays";
 
 export default function ProductCreate() {
   const [productData, setProductData] = useState({
@@ -23,10 +24,13 @@ export default function ProductCreate() {
     sizes: [],
   });
 
-  const furnitureCategories = [
-    "Living Room", "Bedroom", "Dining Room", "Office", "Outdoor", 
-    "Storage", "Kids Furniture", "Home Decor", "Lighting"
-  ];
+  const furnitureCategories = categories;
+  
+  
+  // [
+  //   "Living Room", "Bedroom", "Dining Room", "Office", "Outdoor", 
+  //   "Storage", "Kids Furniture", "Home Decor", "Lighting"
+  // ];
 
   const [files, setFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);

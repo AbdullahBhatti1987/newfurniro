@@ -22,7 +22,7 @@ import ProductDetails from "./adminsrc/adminpages/ProductDetails";
 import ProductGrid from "./adminsrc/adminpages/ProductGrid";
 import ProductEdit from "./adminsrc/adminpages/ProductEdit";
 import AddProduct from "./adminsrc/adminpages/AddProduct";
-import CreateProduct from "./adminsrc/adminpages/CreateProduct";
+// import CreateProduct from "./adminsrc/adminpages/CreateProduct";
 import Orders from "./adminsrc/adminpages/Orders";
 // import OrderView from "./adminsrc/adminpages/OrderView";
 // import OrderManage from "./adminsrc/adminpages/OrderManage";
@@ -79,7 +79,7 @@ function App() {
           <Route path="products/details" element={<ProductDetails />} />
           <Route path="products/edit" element={<ProductEdit />} />
           <Route path="products/addproduct" element={<AddProduct />} />
-          <Route path="products/createproduct" element={<CreateProduct />} />
+          {/* <Route path="products/createproduct" element={<CreateProduct />} /> */}
           <Route path="orders" element={<Orders />} />
 
           <Route path="orders/users" element={<Users />} />

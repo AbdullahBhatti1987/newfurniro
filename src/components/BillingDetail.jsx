@@ -45,6 +45,7 @@ const BillingDetail = () => {
 
   const [placeOrder, setPlaceOrder] = useState([]);
   const HandlePlaceOrder = (e) => {
+    
     e.preventDefault();
 
     const formData = {

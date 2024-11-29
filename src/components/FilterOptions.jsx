@@ -48,11 +48,11 @@ function FilterOptions({
               className=" rounded-lg px-2 text-gray-500 flex-grow"
               onChange={perPage}
             >
-              <option value="1">1 per page</option>
               <option value="2">2 per page</option>
-              <option value="3">3 per page</option>
               <option value="4">4 per page</option>
-              <option value="5">5 per page</option>
+              <option value="6">6 per page</option>
+              <option value="8">8 per page</option>
+              <option value="10">10 per page</option>
             </select>
           </div>
           

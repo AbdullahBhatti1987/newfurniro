@@ -78,10 +78,10 @@ export default function MyCart() {
   const HandleCheckOut = () => {
     console.log("AddtoCart =>", addtoCart);
     console.log("CheckOut =>", checkOut);
-    const updatedCart = addtoCart.filter((cartItem) => {
-      return !checkOut.some((checkOutItem) => checkOutItem.id === cartItem.id);
-    });
-    setAddtoCart(updatedCart);
+    // const updatedCart = addtoCart.filter((cartItem) => {
+      // return !checkOut.some((checkOutItem) => checkOutItem.id === cartItem.id);
+    // });
+    // setAddtoCart(updatedCart);
     {
       user.isLogin ? navigate("/checkout") : navigate("/auth/login");
     }

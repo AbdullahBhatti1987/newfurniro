@@ -23,9 +23,7 @@ function Login() {
     window.scrollTo(0, 0);
   }, [location]);
 
-  const {checkOut} = useContext(CheckOutContext);
-
-
+  const { checkOut } = useContext(CheckOutContext);
 
   const navigate = useNavigate();
 
@@ -39,14 +37,13 @@ function Login() {
         ? (alert(
             "Access Denied: Unauthorized login attempt detected. Contact Administrator at the provided contact page."
           ),
-          navigate("/contact")
-         )
+          navigate("/contact"))
         : await signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
               const user = userCredential.user;
-              console.log("User successfully Sign In");          
+              console.log("User successfully Sign In");
               // {checkOut ? navigate("/checkout") : navigate("/")}
-              navigate("/")
+              navigate("/");
             })
             .catch((error) => {
               const errorCode = error.code;
@@ -56,24 +53,24 @@ function Login() {
     }
   };
 
+
+
   const HandleWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider)
-      .then((result) => {
+    signInWithPopup(auth, provider)
+    .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-        // console.log("Google Account=>", user)
+        // console.log("Google Account=>", user);
         navigate("/");
       })
       .catch((error) => {
         const errorMessage = error.message;
         const credential = GoogleAuthProvider.credentialFromError(error);
-        alert(errorMessage)
+        alert(errorMessage);
       });
   };
-
-
 
   return (
     <div className="">
